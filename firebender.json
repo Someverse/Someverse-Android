@@ -1,0 +1,94 @@
+{
+  "rules": [
+    "Follow Clean Architecture. Dependency direction: presentation → domain ← data",
+    "Domain layer must not depend on Android Framework or external libraries",
+    "Domain layer must not import data or presentation layers",
+    "Presentation layer must not directly reference data layer",
+    "Follow multi-module architecture",
+    "Feature modules must not depend on each other",
+    "Use Version Catalog for dependency version management",
+    {
+      "filePathMatches": "**/*.kt",
+      "rulesPaths": [
+        "docs/architecture.md",
+        "docs/multi-module.md"
+      ]
+    },
+    {
+      "filePathMatches": "**/build.gradle.kts",
+      "rulesPaths": [
+        "docs/multi-module.md",
+        "docs/version-catalog.md"
+      ],
+      "rules": [
+        "Use Version Catalog (libs.versions.toml) to declare dependencies",
+        "Do not use hardcoded version numbers",
+        "Use appropriate plugins for module types (domain: java-library, others: android.library)"
+      ]
+    },
+    {
+      "filePathMatches": "**/domain/**/*.kt",
+      "rules": [
+        "Must not import or use Android Framework classes (Context, Activity, Fragment, ViewModel, etc.)",
+        "Must not use external libraries (excluding Retrofit, Room, and DI annotations from Hilt)",
+        "Must not import data or presentation packages",
+        "Must not import feature packages",
+        "Repository must only be defined as Interface",
+        "Must use pure Kotlin code only"
+      ]
+    },
+    {
+      "filePathMatches": "**/data/**/*.kt",
+      "rules": [
+        "Implement Domain's Repository Interface",
+        "Use Mapper to convert DTO to Domain Model",
+        "Do not import presentation packages",
+        "Do not import feature packages",
+        "Return Domain Model, not DTO directly"
+      ]
+    },
+    {
+      "filePathMatches": "**/feature/**/*.kt",
+      "rules": [
+        "Depend only on Domain's UseCase",
+        "Do not directly import or reference data packages",
+        "Do not import other feature packages (no direct dependency between features)",
+        "Do not use Repository directly, access only through UseCase",
+        "Do not write business logic in ViewModel",
+        "Use UI Model for complex data transformation"
+      ]
+    },
+    {
+      "filePathMatches": "**/core/**/*.kt",
+      "rules": [
+        "Do not import feature, domain, or data packages",
+        "Core modules can only depend on other core modules",
+        "Include only reusable common functionality"
+      ]
+    },
+    {
+      "filePathMatches": "**/*ViewModel.kt",
+      "rules": [
+        "Inject only UseCases (no direct Repository injection)",
+        "Use @HiltViewModel annotation",
+        "Business logic must be separated into UseCases",
+        "Clearly define and use UI State"
+      ]
+    },
+    {
+      "filePathMatches": "**/*UseCase.kt",
+      "rules": [
+        "Follow Single Responsibility Principle",
+        "Implement operator fun invoke",
+        "Use @Inject constructor for dependency injection"
+      ]
+    },
+    {
+      "filePathMatches": "**/settings.gradle.kts",
+      "rules": [
+        "All modules must be registered with include",
+        "Module names must follow clear naming conventions (:feature:feature-*, :domain:domain-*, :data:data-*, :core:core-*)"
+      ]
+    }
+  ]
+}
