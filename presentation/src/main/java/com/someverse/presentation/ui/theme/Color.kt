@@ -1,4 +1,4 @@
-package com.someverse.someverse.ui.theme
+package com.someverse.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "someverse"
 include(":app")
+include(":data")
+include(":domain")
+include(":presentation")
