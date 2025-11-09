@@ -1,6 +1,7 @@
 package com.someverse.domain.usecase.onboarding
 
 import com.someverse.domain.model.Gender
+import com.someverse.domain.model.User
 import com.someverse.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -17,9 +18,9 @@ class SubmitGenderUseCase @Inject constructor(
      * Submit user gender
      *
      * @param gender User's gender (MALE, FEMALE)
-     * @return Result<Unit> success or failure with validation error
+     * @return Result<User> updated user with gender or failure
      */
-    suspend operator fun invoke(gender: Gender): Result<Unit> {
+    suspend operator fun invoke(gender: Gender): Result<User> {
         // No validation needed - enum guarantees valid value!
         // Business logic can be added here if needed
         // e.g., logging, analytics, etc.

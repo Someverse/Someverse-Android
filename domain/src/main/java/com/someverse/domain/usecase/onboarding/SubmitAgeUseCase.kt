@@ -1,5 +1,6 @@
 package com.someverse.domain.usecase.onboarding
 
+import com.someverse.domain.model.User
 import com.someverse.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -15,14 +16,14 @@ class SubmitAgeUseCase @Inject constructor(
     /**
      * Submit user age
      *
-     * @param age User's age (must be 14 or older for service use)
-     * @return Result<Unit> success or failure with validation error
+     * @param age User's age (must be 19 or older for service use)
+     * @return Result<User> updated user with age or failure with validation error
      */
-    suspend operator fun invoke(age: Int): Result<Unit> {
+    suspend operator fun invoke(age: Int): Result<User> {
         // Business logic: Validate age
         if (age < 19) {
             return Result.failure(
-                IllegalArgumentException("Must be at least 14 years old to use this service")
+                IllegalArgumentException("Must be at least 19 years old to use this service")
             )
         }
 

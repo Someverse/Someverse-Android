@@ -1,5 +1,6 @@
 package com.someverse.domain.usecase.onboarding
 
+import com.someverse.domain.model.User
 import com.someverse.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -16,9 +17,9 @@ class SubmitNicknameUseCase @Inject constructor(
      * Submit user nickname
      *
      * @param nickname User's chosen nickname, 2~8자
-     * @return Result<Unit> success or failure with validation error
+     * @return Result<User> updated user with nickname or failure with validation error
      */
-    suspend operator fun invoke(nickname: String): Result<Unit> {
+    suspend operator fun invoke(nickname: String): Result<User> {
         // Business logic: Validate nickname
         if (nickname.isBlank()) {
             return Result.failure(

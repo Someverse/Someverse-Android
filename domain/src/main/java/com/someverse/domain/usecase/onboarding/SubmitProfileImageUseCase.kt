@@ -27,7 +27,12 @@ import javax.inject.Inject
  *    ↓
  * 7. UseCase returns URL to ViewModel
  * ```
+ *
+ * NOTE: THIS USECASE IS CURRENTLY DISABLED AND WILL BE IMPLEMENTED LATER
+ * The FileRepository implementation is not yet available.
  */
+// TODO: Implement FileRepository and uncomment this UseCase
+/*
 class SubmitProfileImageUseCase @Inject constructor(
     private val fileRepository: FileRepository,     // S3 upload
     private val authRepository: AuthRepository      // Backend API (URL only)
@@ -97,6 +102,30 @@ class SubmitProfileImageUseCase @Inject constructor(
             Result.failure(
                 submitResult.exceptionOrNull()
                     ?: Exception("Failed to submit profile image to backend")
+            )
+        }
+    }
+}
+*/
+
+// Temporary implementation that always returns a mock URL
+// This allows the app to compile and run without the actual file upload functionality
+class SubmitProfileImageUseCase @Inject constructor(
+    private val authRepository: AuthRepository
+) {
+    suspend operator fun invoke(imageFile: File): Result<String> {
+        // Mock implementation - always returns a successful result with a fake URL
+        val mockUrl =
+            "https://someverse-bucket.s3.amazonaws.com/profile/mock_image_${System.currentTimeMillis()}.jpg"
+
+        // Submit mock URL to backend
+        val submitResult = authRepository.submitProfileImage(mockUrl)
+
+        return if (submitResult.isSuccess) {
+            Result.success(mockUrl)
+        } else {
+            Result.failure(
+                submitResult.exceptionOrNull() ?: Exception("Failed to submit profile image")
             )
         }
     }
