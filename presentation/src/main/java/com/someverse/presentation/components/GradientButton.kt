@@ -23,20 +23,22 @@ fun GradientButton(
     text: String,
     onClick: () -> Unit,
     enabled: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    textStyle: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.titleMedium,
+    textColor: Color = Color.White
 ) {
     val gradient = if (enabled) {
         Brush.horizontalGradient(
             colors = listOf(
-                Color(0xFF8D66FA),
-                Color(0xFFF48FB1)
+                Color(0xFF7451C9),
+                Color(0xFFFD71A6)
             )
         )
     } else {
         Brush.horizontalGradient(
             colors = listOf(
-                Color(0xFFE4E8EF),
-                Color(0xFFE4E8EF)
+                Color(0xFFEDE9FC),
+                Color(0xFFFCF6E9)
             )
         )
     }
@@ -50,8 +52,8 @@ fun GradientButton(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.titleMedium,
-            color = Color.White
+            style = textStyle,
+            color = textColor
         )
     }
 }
