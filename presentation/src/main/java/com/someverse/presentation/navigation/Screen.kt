@@ -14,8 +14,14 @@ sealed class Screen(val route: String) {
     data object SignupProfileImage : Screen("signup_profile_image")
     data object SignupMovieCategory: Screen("signup_movie_category")
     data object SignupMovieTaste : Screen("signup_movie_taste")
+    data object SignupComplete : Screen("signup_complete")
 
-    // Main
-    data object Home : Screen("home")
-    data object Profile : Screen("profile")
+    // Main (with BottomNavigation)
+    data object Main : Screen("main")
+
+    // Tab Screens
+    data object MyProfile : Screen("my_profile")
+    data object Feed : Screen("feed")
+    data object Matching : Screen("matching")
+    data object Chat : Screen("chat")
 }
