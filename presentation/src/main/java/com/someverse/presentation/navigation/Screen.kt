@@ -24,4 +24,7 @@ sealed class Screen(val route: String) {
     data object Feed : Screen("feed")
     data object Matching : Screen("matching")
     data object Chat : Screen("chat")
+
+    // Chat Related Screens
+    data object WaitingRoom : Screen("waiting_room")
 }
