@@ -16,3 +16,12 @@ val Black = Color(0xFF111111)
 val DescGray = Color(0xFF616772)
 val ChipGray = Color(0xFF9098A6) // Unselected chip text color
 val ChipBackgroundGray = Color(0xFFEBEFF5) // Unselected chip background
+val Divider = Color(0xFFF3F5F7)
+
+// gradation
+val GradationStart = Color(0xFF7451C9)
+val GradationEnd = Color(0xFFFD71A6)
+
+val Background =  Color(0x4DFFFFFF)
+
+val TextPrimary = Color(0xFF000000)
