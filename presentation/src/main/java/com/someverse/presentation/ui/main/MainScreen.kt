@@ -16,13 +16,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.someverse.presentation.navigation.BottomNavItem
 import com.someverse.presentation.navigation.Screen
 import com.someverse.presentation.ui.chat.ChatScreen
+import com.someverse.presentation.ui.chat.DetailChatScreen
 import com.someverse.presentation.ui.feed.FeedScreen
 import com.someverse.presentation.ui.matching.MatchingScreen
 import com.someverse.presentation.ui.myprofile.MyProfileScreen
@@ -36,11 +39,22 @@ import com.someverse.presentation.ui.waitingroom.WaitingRoomScreen
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    // Bottom navigation을 숨길 화면들
+    val screensWithoutBottomBar = listOf(
+        Screen.WaitingRoom.route,
+        Screen.DetailChat.route
+    )
+    val shouldShowBottomBar = currentRoute !in screensWithoutBottomBar
 
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp),
         bottomBar = {
-            BottomNavigationBar(navController = navController)
+            if (shouldShowBottomBar) {
+                BottomNavigationBar(navController = navController)
+            }
         }
     ) { innerPadding ->
         NavHost(
@@ -64,12 +78,32 @@ fun MainScreen() {
                 ChatScreen(
                     onNavigateToWaitingRoom = {
                         navController.navigate(Screen.WaitingRoom.route)
+                    },
+                    onNavigateToDetailChat = { roomId ->
+                        navController.navigate(
+                            Screen.DetailChat.createRoute(
+                                roomId
+                            )
+                        )
                     }
                 )
             }
 
             composable(Screen.WaitingRoom.route) {
                 WaitingRoomScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable(
+                route = Screen.DetailChat.route,
+                arguments = listOf(
+                    navArgument("roomId") { type = NavType.LongType }
+                )
+            ) {
+                DetailChatScreen(
                     onBackClick = {
                         navController.popBackStack()
                     }
