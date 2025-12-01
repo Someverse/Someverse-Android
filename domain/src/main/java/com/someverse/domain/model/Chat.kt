@@ -9,7 +9,9 @@ data class Chat(
     val lastMessage: String?,
     val lastMessageTime: String?,
     val unreadCount: Int,
-    val isRequester: Boolean
+    val isRequester: Boolean,
+    val lumiUsed: Int,
+    val isFreeChat: Boolean
 )
 
 enum class ChatStatus {
