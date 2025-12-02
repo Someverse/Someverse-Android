@@ -2,12 +2,16 @@ package com.someverse.data.di
 
 import com.someverse.data.impl.AuthRepositoryImpl
 import com.someverse.data.impl.ChatRepositoryImpl
+import com.someverse.data.impl.FeedRepositoryImpl
 import com.someverse.data.local.AuthLocalDataSource
 import com.someverse.data.local.ChatLocalDataSource
+import com.someverse.data.local.FeedLocalDataSource
 import com.someverse.data.source.AuthDataSource
 import com.someverse.data.source.ChatDataSource
+import com.someverse.data.source.FeedDataSource
 import com.someverse.domain.repository.AuthRepository
 import com.someverse.domain.repository.ChatRepository
+import com.someverse.domain.repository.FeedRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,6 +58,23 @@ object DataModule {
         // return ChatRemoteDataSource(chatApiService)
     }
 
+    /**
+     * Provide FeedDataSource implementation
+     *
+     * SWITCH BETWEEN LOCAL AND REMOTE HERE:
+     * - Local (Mock): return FeedLocalDataSource()
+     * - Remote (API): return FeedRemoteDataSource(feedApiService)
+     */
+    @Provides
+    @Singleton
+    fun provideFeedDataSource(): FeedDataSource {
+        // 현재: Local (Mock) 사용
+        return FeedLocalDataSource()
+
+        // 나중에 Remote로 교체:
+        // return FeedRemoteDataSource(feedApiService)
+    }
+
     // ==================== Repositories ====================
 
     @Provides
@@ -70,5 +91,13 @@ object DataModule {
         dataSource: ChatDataSource  // Interface 주입!
     ): ChatRepository {
         return ChatRepositoryImpl(dataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFeedRepository(
+        dataSource: FeedDataSource  // Interface 주입!
+    ): FeedRepository {
+        return FeedRepositoryImpl(dataSource)
     }
 }
