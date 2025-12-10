@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Someverse" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Someverse" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- 기본 배경 -->
+        <item name="android:windowBackground">@android:color/white</item>
+        <!-- 투명 윈도우로 splash 제거 (선택적 방법) -->
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>
