@@ -13,6 +13,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.someverse.presentation.ui.theme.GradationEnd
+import com.someverse.presentation.ui.theme.GradationStart
 
 /**
  * 그라데이션 버튼 컴포넌트
@@ -30,8 +32,8 @@ fun GradientButton(
     val gradient = if (enabled) {
         Brush.horizontalGradient(
             colors = listOf(
-                Color(0xFF7451C9),
-                Color(0xFFFD71A6)
+                GradationStart,
+                GradationEnd
             )
         )
     } else {
