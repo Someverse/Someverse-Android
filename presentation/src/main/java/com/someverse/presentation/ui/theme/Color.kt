@@ -21,9 +21,13 @@ val Divider = Color(0xFFF3F5F7)
 // gradation
 val GradationStart = Color(0xFF7451C9)
 val GradationEnd = Color(0xFFFD71A6)
+val FeedShaderGradationStart = Color(0xFFFBEBF3)
+val FeedShaderGradationEnd = Color(0xFFFCF6E8)
 
 val Background =  Color(0x4DFFFFFF)
 val ChatBackground = Color(0xFFFAFAFA)
 val ChatInputBackground = Color(0xFFEBEFF5)
 
 val TextPrimary = Color(0xFF000000)
+val Neutral20= Color(0xFFEBEFF5)
+val Neutral80 = Color(0xFF9098A6)
