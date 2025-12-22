@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">someverse</string>
-    
+
     <!-- Matching -->
     <string name="matching">매칭</string>
 
     <!-- Feed -->
     <string name="feed">피드</string>
+    <string name="someverse">Someverse</string>
 
     <!-- My -->
     <string name="my">my</string>
