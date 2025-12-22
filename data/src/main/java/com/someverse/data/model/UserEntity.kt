@@ -83,7 +83,15 @@ data class UserEntity(
             birthDate = birthDate,
             gender = gender?.let { Gender.valueOf(it) },
             activityLocations = activityLocations?.map { it.toDomain() },
-            profileImages = profileImages,
+            profileImages = profileImages?.takeIf { it.isNotEmpty() }?.let { images ->
+                val primaryIndex = primaryImageUrl?.let { url ->
+                    images.indexOf(url).takeIf { it >= 0 } ?: 0
+                } ?: 0
+                ProfileImages(
+                    images = images,
+                    primaryImageIndex = primaryIndex
+                )
+            },
             primaryImageUrl = primaryImageUrl,
             bio = bio,
             job = job,
@@ -161,7 +169,7 @@ fun User.toEntity(): UserEntity {
         age = null, // TODO: Calculate from birthDate if needed
         gender = gender?.name,
         activityLocations = activityLocations?.map { it.toEntity() },
-        profileImages = profileImages,
+        profileImages = profileImages?.images,
         primaryImageUrl = primaryImageUrl,
         bio = bio,
         job = job,
