@@ -10,7 +10,7 @@ data class User(
     val birthDate: String?,
     val gender: Gender?,
     val activityLocations: List<Location>?,
-    val profileImages: List<String>?,
+    val profileImages: ProfileImages?,
     val primaryImageUrl: String?,
     val bio: String?,
     val job: String?,
@@ -27,18 +27,17 @@ data class Location(
 )
 
 /**
- * Movie Model (Basic Info)
- */
-data class Movie(
-    val movieId: Long,
-    val title: String,
-    val posterPath: String?
-)
-
-/**
  * Genre Model
  */
 data class Genre(
     val genreId: Long,
     val name: String
+)
+
+/**
+ * Profile Images Information
+ */
+data class ProfileImages(
+    val images: List<String>,
+    val primaryImageIndex: Int
 )
