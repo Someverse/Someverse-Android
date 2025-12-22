@@ -6,6 +6,9 @@ package com.someverse.presentation.navigation
  */
 sealed class Screen(val route: String) {
 
+    // Splash
+    data object Splash : Screen("splash")
+
     // Auth
     data object Login : Screen("login")
 
@@ -24,6 +27,9 @@ sealed class Screen(val route: String) {
     data object Feed : Screen("feed")
     data object Matching : Screen("matching")
     data object Chat : Screen("chat")
+
+    // Feed Related Screens
+    data object CreateFeed : Screen("create_feed")
 
     // Chat Related Screens
     data object WaitingRoom : Screen("waiting_room")
