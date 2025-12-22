@@ -45,7 +45,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:30:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 0,
+                isFreeChat = true
             ),
             Chat(
                 roomId = 2,
@@ -56,7 +58,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:28:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 50,
+                isFreeChat = false
             ),
             Chat(
                 roomId = 3,
@@ -67,7 +71,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:26:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 100,
+                isFreeChat = false
             ),
             Chat(
                 roomId = 4,
@@ -78,7 +84,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:24:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 0,
+                isFreeChat = true
             ),
             Chat(
                 roomId = 5,
@@ -89,7 +97,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:22:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 75,
+                isFreeChat = false
             ),
             Chat(
                 roomId = 6,
@@ -100,7 +110,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:20:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 0,
+                isFreeChat = true
             ),
             Chat(
                 roomId = 7,
@@ -111,7 +123,9 @@ class WaitingRoomViewModel @Inject constructor(
                 lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
                 lastMessageTime = "2025-11-24T15:18:00",
                 unreadCount = 1,
-                isRequester = false
+                isRequester = false,
+                lumiUsed = 50,
+                isFreeChat = false
             )
         )
     }
