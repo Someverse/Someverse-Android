@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.someverse.presentation.R
 import com.someverse.presentation.ui.components.KakaoLoginButton
+import com.someverse.presentation.ui.theme.Black
+import com.someverse.presentation.ui.theme.DescGray
 import com.someverse.presentation.ui.theme.Dimensions
 import com.someverse.presentation.ui.theme.PrimaryPurple
 import com.someverse.presentation.ui.theme.SomeverseTheme
 import com.someverse.presentation.ui.theme.White
-import com.someverse.presentation.ui.theme.Black
-import com.someverse.presentation.ui.theme.DescGray
 
 private const val TAG = "LoginScreen"
 
@@ -36,7 +36,7 @@ private const val TAG = "LoginScreen"
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -58,22 +58,24 @@ fun LoginScreen(
                 TextButton(onClick = { viewModel.clearError() }) {
                     Text("OK")
                 }
-            }
+            },
         )
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+        contentAlignment = Alignment.Center,
     ) {
         // Main login UI
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(Dimensions.screenPadding),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(Dimensions.screenPadding),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // Logo
             LogoSection()
@@ -85,7 +87,7 @@ fun LoginScreen(
                 text = "당신의 취향이\n연결의 시작",
                 style = MaterialTheme.typography.displayLarge,
                 textAlign = TextAlign.Center,
-                color = Black
+                color = Black,
             )
 
             Spacer(modifier = Modifier.height(Dimensions.space12))
@@ -95,7 +97,7 @@ fun LoginScreen(
                 text = "콘텐츠 취향을 함께 나눌 친구를 만나세요.",
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center,
-                color = DescGray
+                color = DescGray,
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -105,7 +107,7 @@ fun LoginScreen(
                 onClick = {
                     Log.d(TAG, "Kakao login clicked")
                     viewModel.mockLogin()
-                }
+                },
             )
 
             Spacer(modifier = Modifier.height(Dimensions.space64))
@@ -115,25 +117,25 @@ fun LoginScreen(
                 text = "시작하면\n서비스 이용약관, 개인정보 처리방침, 위치정보, 이용약관에\n동의하게 됩니다.",
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
-                color = Color(0xFF9BA3B1)
+                color = Color(0xFF9BA3B1),
             )
 
             TextButton(
                 onClick = { /* TODO: Open business info */ },
-                modifier = Modifier.padding(bottom = Dimensions.space16)
+                modifier = Modifier.padding(bottom = Dimensions.space16),
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "사업자 정보",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = Color(0xFF9BA3B1)
+                        color = Color(0xFF9BA3B1),
                     )
 
                     Icon(
                         painter = painterResource(id = R.drawable.ic_triangle_right),
                         contentDescription = "Arrow Right",
                         tint = Color(0xFF9BA3B1),
-                        modifier = Modifier.size(Dimensions.iconSizeSmall)
+                        modifier = Modifier.size(Dimensions.iconSizeSmall),
                     )
                 }
             }
@@ -142,10 +144,11 @@ fun LoginScreen(
         // Loading indicator
         if (uiState.isLoading) {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background.copy(alpha = 0.8f)),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background.copy(alpha = 0.8f)),
+                contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator()
             }
@@ -158,7 +161,7 @@ private fun LogoSection() {
     Image(
         painter = painterResource(id = R.drawable.ic_login_logo),
         contentDescription = "Someverse Logo",
-        modifier = Modifier.size(Dimensions.logoSize)
+        modifier = Modifier.size(Dimensions.logoSize),
     )
 
     Spacer(modifier = Modifier.height(Dimensions.space16))
@@ -167,6 +170,6 @@ private fun LogoSection() {
     Text(
         text = "SOMEVERSE",
         style = MaterialTheme.typography.titleSmall,
-        color = PrimaryPurple
+        color = PrimaryPurple,
     )
 }

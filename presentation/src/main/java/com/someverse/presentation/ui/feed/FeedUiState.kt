@@ -9,5 +9,5 @@ import com.someverse.domain.model.Feed
 data class FeedUiState(
     val isLoading: Boolean = false,
     val feeds: List<Feed> = emptyList(),
-    val error: String? = null
+    val error: String? = null,
 )

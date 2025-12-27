@@ -10,24 +10,26 @@ import javax.inject.Inject
  * - Business logic: Validate room ID before fetching
  * - Delegates to ChatRepository
  */
-class GetChatDetailUseCase @Inject constructor(
-    private val chatRepository: ChatRepository
-) {
-    /**
-     * Get details of a specific chat room
-     *
-     * @param roomId Chat room ID to fetch
-     * @return Result<Chat> chat room details or failure with error
-     */
-    suspend operator fun invoke(roomId: Int): Result<Chat> {
-        // Business logic: Validate room ID
-        if (roomId <= 0) {
-            return Result.failure(
-                IllegalArgumentException("Invalid room ID")
-            )
-        }
+class GetChatDetailUseCase
+    @Inject
+    constructor(
+        private val chatRepository: ChatRepository,
+    ) {
+        /**
+         * Get details of a specific chat room
+         *
+         * @param roomId Chat room ID to fetch
+         * @return Result<Chat> chat room details or failure with error
+         */
+        suspend operator fun invoke(roomId: Int): Result<Chat> {
+            // Business logic: Validate room ID
+            if (roomId <= 0) {
+                return Result.failure(
+                    IllegalArgumentException("Invalid room ID"),
+                )
+            }
 
-        // Delegate to repository
-        return chatRepository.getChatDetail(roomId)
+            // Delegate to repository
+            return chatRepository.getChatDetail(roomId)
+        }
     }
-}

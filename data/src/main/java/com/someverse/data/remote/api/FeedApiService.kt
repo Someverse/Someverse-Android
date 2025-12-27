@@ -16,14 +16,13 @@ import retrofit2.http.Path
  * - Defines Retrofit API endpoints for feed functionality
  */
 interface FeedApiService {
-
     /**
      * Create feed
      * POST /feed/created
      */
     @POST("feed/created")
     suspend fun createFeed(
-        @Body request: CreateFeedRequestDto
+        @Body request: CreateFeedRequestDto,
     ): FeedApiResponse<FeedEntity>
 
     /**
@@ -46,7 +45,7 @@ interface FeedApiService {
      */
     @GET("feed/{feedId}")
     suspend fun getFeedDetail(
-        @Path("feedId") feedId: Long
+        @Path("feedId") feedId: Long,
     ): FeedApiResponse<FeedEntity>
 
     /**
@@ -56,7 +55,7 @@ interface FeedApiService {
     @PUT("feed/{feedId}/update")
     suspend fun updateFeed(
         @Path("feedId") feedId: Long,
-        @Body request: UpdateFeedRequestDto
+        @Body request: UpdateFeedRequestDto,
     ): FeedApiResponse<FeedEntity>
 
     /**
@@ -65,7 +64,7 @@ interface FeedApiService {
      */
     @DELETE("feed/{feedId}/inActive")
     suspend fun inactivateFeed(
-        @Path("feedId") feedId: Long
+        @Path("feedId") feedId: Long,
     ): FeedApiResponse<Unit>
 
     /**
@@ -74,7 +73,7 @@ interface FeedApiService {
      */
     @PUT("feed/{feedId}/active")
     suspend fun activateFeed(
-        @Path("feedId") feedId: Long
+        @Path("feedId") feedId: Long,
     ): FeedApiResponse<FeedEntity>
 
     /**

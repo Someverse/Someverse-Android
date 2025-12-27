@@ -7,7 +7,8 @@ enum class SocialProvider {
     KAKAO,
     GOOGLE,
     NAVER,
-    UNKNOWN; // Default fallback
+    UNKNOWN, // Default fallback
+    ;
 
     companion object {
         /**

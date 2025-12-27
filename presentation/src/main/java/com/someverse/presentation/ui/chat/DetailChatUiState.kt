@@ -14,5 +14,5 @@ data class DetailChatUiState(
     val currentPage: Int = 0,
     val hasMore: Boolean = true,
     val isSending: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
 )

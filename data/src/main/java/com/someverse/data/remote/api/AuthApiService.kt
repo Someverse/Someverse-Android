@@ -12,7 +12,6 @@ import retrofit2.http.*
  * 스펙 확정되면 Map -> 개별 필드 혹은 DTO
  */
 interface AuthApiService {
-
     // ==================== Authentication ====================
 
     /**
@@ -21,7 +20,7 @@ interface AuthApiService {
      */
     @POST("auth/social-login")
     suspend fun socialLogin(
-        @Body body: Map<String, String>
+        @Body body: Map<String, String>,
     ): Response<AuthTokenEntity>
 
     @POST("auth/logout")
@@ -33,7 +32,7 @@ interface AuthApiService {
      */
     @POST("auth/refresh")
     suspend fun refreshToken(
-        @Body body: Map<String, String>
+        @Body body: Map<String, String>,
     ): Response<AuthTokenEntity>
 
     /**
@@ -50,7 +49,7 @@ interface AuthApiService {
      */
     @PUT("onboarding/nickname")
     suspend fun submitNickname(
-        @Body body: Map<String, String>
+        @Body body: Map<String, String>,
     ): Response<Unit>
 
     /**
@@ -59,7 +58,7 @@ interface AuthApiService {
      */
     @PUT("onboarding/gender")
     suspend fun submitGender(
-        @Body body: Map<String, String>
+        @Body body: Map<String, String>,
     ): Response<Unit>
 
     /**
@@ -68,7 +67,7 @@ interface AuthApiService {
      */
     @PUT("onboarding/age")
     suspend fun submitAge(
-        @Body body: Map<String, Int>
+        @Body body: Map<String, Int>,
     ): Response<Unit>
 
     /**
@@ -77,7 +76,7 @@ interface AuthApiService {
      */
     @PUT("onboarding/address")
     suspend fun submitAddress(
-        @Body body: Map<String, List<String>>
+        @Body body: Map<String, List<String>>,
     ): Response<Unit>
 
     /**
@@ -86,6 +85,6 @@ interface AuthApiService {
      */
     @PUT("onboarding/profile-image")
     suspend fun submitProfileImage(
-        @Body body: Map<String, String>
+        @Body body: Map<String, String>,
     ): Response<Unit>
 }

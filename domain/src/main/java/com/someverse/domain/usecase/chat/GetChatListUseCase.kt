@@ -10,20 +10,21 @@ import javax.inject.Inject
  * - Business logic: Sort chat list by last message time
  * - Delegates to ChatRepository
  */
-class GetChatListUseCase @Inject constructor(
-    private val chatRepository: ChatRepository
-) {
-    /**
-     * Get list of user's chat rooms
-     *
-     * @return Result<List<Chat>> list of chat rooms sorted by last message time
-     */
-    suspend operator fun invoke(): Result<List<Chat>> {
-        return chatRepository.getChatList().map { chatList ->
-            // Business logic: Sort by last message time (most recent first)
-            chatList.sortedByDescending { chat ->
-                chat.lastMessageTime ?: ""
+class GetChatListUseCase
+    @Inject
+    constructor(
+        private val chatRepository: ChatRepository,
+    ) {
+        /**
+         * Get list of user's chat rooms
+         *
+         * @return Result<List<Chat>> list of chat rooms sorted by last message time
+         */
+        suspend operator fun invoke(): Result<List<Chat>> =
+            chatRepository.getChatList().map { chatList ->
+                // Business logic: Sort by last message time (most recent first)
+                chatList.sortedByDescending { chat ->
+                    chat.lastMessageTime ?: ""
+                }
             }
-        }
     }
-}

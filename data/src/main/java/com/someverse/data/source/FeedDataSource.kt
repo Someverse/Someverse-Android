@@ -9,7 +9,6 @@ import com.someverse.data.model.FeedEntity
  * - Repository depends on this interface, not concrete implementations
  */
 interface FeedDataSource {
-
     /**
      * Create a new feed
      */
@@ -17,7 +16,7 @@ interface FeedDataSource {
         feedType: String,
         movieId: Long?,
         musicId: Long?,
-        content: String
+        content: String,
     ): FeedEntity
 
     /**
@@ -38,7 +37,10 @@ interface FeedDataSource {
     /**
      * Update feed content
      */
-    suspend fun updateFeed(feedId: Long, content: String): FeedEntity
+    suspend fun updateFeed(
+        feedId: Long,
+        content: String,
+    ): FeedEntity
 
     /**
      * Inactivate (soft delete) a feed

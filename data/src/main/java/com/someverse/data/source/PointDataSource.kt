@@ -7,7 +7,6 @@ package com.someverse.data.source
  * - Repository depends on this interface, not concrete implementations
  */
 interface PointDataSource {
-
     /**
      * Get current user's point balance
      * @return Point balance (루미 개수)

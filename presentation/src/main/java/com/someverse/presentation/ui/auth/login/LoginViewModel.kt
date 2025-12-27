@@ -26,100 +26,103 @@ import kotlin.onSuccess
  * 5. ViewModel updates UI state based on result
  */
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val socialLoginUseCase: SocialLoginUseCase
-) : ViewModel() {
+class LoginViewModel
+    @Inject
+    constructor(
+        private val socialLoginUseCase: SocialLoginUseCase,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow(LoginUiState())
+        val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(LoginUiState())
-    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+        /**
+         * Handle OAuth login with JWT token
+         *
+         * @param jwtToken JWT token received from backend OAuth callback
+         */
+        fun login(jwtToken: String) {
+            viewModelScope.launch {
+                // Set loading state
+                _uiState.update { it.copy(isLoading = true, error = null) }
 
-    /**
-     * Handle OAuth login with JWT token
-     *
-     * @param jwtToken JWT token received from backend OAuth callback
-     */
-    fun login(jwtToken: String) {
-        viewModelScope.launch {
-            // Set loading state
-            _uiState.update { it.copy(isLoading = true, error = null) }
+                // Call UseCase (handles token saving + auth status check)
+                val result = socialLoginUseCase(jwtToken)
 
-            // Call UseCase (handles token saving + auth status check)
-            val result = socialLoginUseCase(jwtToken)
-
-            // Update UI state based on result
-            result.onSuccess { authStatus ->
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        userId = authStatus.userId,
-                        email = authStatus.email,
-                        provider = authStatus.provider,
-                        isLoginSuccess = true,
-                        needsOnboarding = authStatus.needsOnboarding,
-                        error = null
-                    )
-                }
-            }.onFailure { exception ->
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = exception.message ?: "Login failed",
-                        isLoginSuccess = false
-                    )
-                }
+                // Update UI state based on result
+                result
+                    .onSuccess { authStatus ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                userId = authStatus.userId,
+                                email = authStatus.email,
+                                provider = authStatus.provider,
+                                isLoginSuccess = true,
+                                needsOnboarding = authStatus.needsOnboarding,
+                                error = null,
+                            )
+                        }
+                    }.onFailure { exception ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = exception.message ?: "Login failed",
+                                isLoginSuccess = false,
+                            )
+                        }
+                    }
             }
         }
-    }
 
-    /**
-     * Mock login using the AuthLocalDataSource
-     * Use this for testing the flow without an actual backend
-     */
-    fun mockLogin() {
-        viewModelScope.launch {
-            // Set loading state
-            _uiState.update { it.copy(isLoading = true, error = null) }
+        /**
+         * Mock login using the AuthLocalDataSource
+         * Use this for testing the flow without an actual backend
+         */
+        fun mockLogin() {
+            viewModelScope.launch {
+                // Set loading state
+                _uiState.update { it.copy(isLoading = true, error = null) }
 
-            // Use a mock JWT token to trigger the login flow
-            val mockJwtToken = "mock_jwt_token_${System.currentTimeMillis()}"
-            val result = socialLoginUseCase(mockJwtToken)
+                // Use a mock JWT token to trigger the login flow
+                val mockJwtToken = "mock_jwt_token_${System.currentTimeMillis()}"
+                val result = socialLoginUseCase(mockJwtToken)
 
-            // Update UI state based on result
-            result.onSuccess { authStatus ->
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        userId = authStatus.userId,
-                        email = authStatus.email,
-                        provider = authStatus.provider,
-                        isLoginSuccess = true,
-                        needsOnboarding = authStatus.needsOnboarding,
-                        error = null
-                    )
-                }
-            }.onFailure { exception ->
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = exception.message ?: "Login failed",
-                        isLoginSuccess = false
-                    )
-                }
+                // Update UI state based on result
+                result
+                    .onSuccess { authStatus ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                userId = authStatus.userId,
+                                email = authStatus.email,
+                                provider = authStatus.provider,
+                                isLoginSuccess = true,
+                                needsOnboarding = authStatus.needsOnboarding,
+                                error = null,
+                            )
+                        }
+                    }.onFailure { exception ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = exception.message ?: "Login failed",
+                                isLoginSuccess = false,
+                            )
+                        }
+                    }
             }
         }
-    }
 
-    /**
-     * Clear error state
-     */
-    fun clearError() {
-        _uiState.update { it.copy(error = null) }
-    }
+        /**
+         * Clear error state
+         */
+        fun clearError() {
+            _uiState.update { it.copy(error = null) }
+        }
 
-    /**
-     * Reset login state (after navigation)
-     */
-    fun resetLoginState() {
-        _uiState.update { it.copy(isLoginSuccess = false) }
+        /**
+         * Reset login state (after navigation)
+         */
+        fun resetLoginState() {
+            _uiState.update { it.copy(isLoginSuccess = false) }
+        }
     }
-}

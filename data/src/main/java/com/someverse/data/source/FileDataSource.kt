@@ -9,7 +9,6 @@ import java.io.File
  * - Repository depends on this interface, not concrete implementations
  */
 interface FileDataSource {
-
     /**
      * Upload single image file
      *
@@ -17,7 +16,10 @@ interface FileDataSource {
      * @param folder Folder for organizing files
      * @return S3 URL string
      */
-    suspend fun uploadImage(file: File, folder: String): String
+    suspend fun uploadImage(
+        file: File,
+        folder: String,
+    ): String
 
     /**
      * Upload multiple image files
@@ -26,7 +28,10 @@ interface FileDataSource {
      * @param folder Folder for organizing files
      * @return List of S3 URLs
      */
-    suspend fun uploadMultipleImages(files: List<File>, folder: String): List<String>
+    suspend fun uploadMultipleImages(
+        files: List<File>,
+        folder: String,
+    ): List<String>
 
     /**
      * Delete file from S3

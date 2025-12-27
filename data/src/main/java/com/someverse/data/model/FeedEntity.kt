@@ -16,7 +16,7 @@ data class FeedEntity(
     @SerializedName("nickName")
     val nickName: String,
     @SerializedName("profileImages")
-    val profileImages: String?
+    val profileImages: String?,
 )
 
 /**
@@ -30,7 +30,7 @@ data class CreateFeedRequestDto(
     @SerializedName("musicId")
     val musicId: Long?,
     @SerializedName("content")
-    val content: String
+    val content: String,
 )
 
 /**
@@ -38,7 +38,7 @@ data class CreateFeedRequestDto(
  */
 data class UpdateFeedRequestDto(
     @SerializedName("content")
-    val content: String
+    val content: String,
 )
 
 /**
@@ -52,5 +52,5 @@ data class FeedApiResponse<T>(
     @SerializedName("message")
     val message: String,
     @SerializedName("data")
-    val data: T?
+    val data: T?,
 )

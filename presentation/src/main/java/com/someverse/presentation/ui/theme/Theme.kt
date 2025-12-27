@@ -10,24 +10,26 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryPurple,
-    onPrimary = White,
-    onSecondary = White,
-    onBackground = White,
-    onSurface = White,
-    onError = White
-)
+private val DarkColorScheme =
+    darkColorScheme(
+        primary = PrimaryPurple,
+        onPrimary = White,
+        onSecondary = White,
+        onBackground = White,
+        onSurface = White,
+        onError = White,
+    )
 
-private val LightColorScheme = lightColorScheme(
-    primary = PrimaryPurple,
-    background = White,
-    onPrimary = White,
-    onSecondary = White,
-    onBackground = Black,
-    onSurface = Black,
-    onError = White
-)
+private val LightColorScheme =
+    lightColorScheme(
+        primary = PrimaryPurple,
+        background = White,
+        onPrimary = White,
+        onSecondary = White,
+        onBackground = Black,
+        onSurface = Black,
+        onError = White,
+    )
 
 @Composable
 fun SomeverseTheme(
@@ -35,7 +37,7 @@ fun SomeverseTheme(
     darkTheme: Boolean = false, // Parameter kept for compatibility
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false, // Disabled dynamic colors
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     // Always use light theme
     val colorScheme = LightColorScheme
@@ -43,6 +45,6 @@ fun SomeverseTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
     )
 }

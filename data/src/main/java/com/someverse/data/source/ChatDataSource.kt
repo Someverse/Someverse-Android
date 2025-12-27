@@ -11,13 +11,15 @@ import com.someverse.data.model.ChatMessageHistoryEntity
  * - Repository depends on this interface, not concrete implementations
  */
 interface ChatDataSource {
-
     // ==================== Chat Room Management ====================
 
     /**
      * Request a new chat with a user
      */
-    suspend fun requestChat(userId: Int, message: String): ChatEntity
+    suspend fun requestChat(
+        userId: Int,
+        message: String,
+    ): ChatEntity
 
     /**
      * Get list of all chat rooms for current user
@@ -57,7 +59,7 @@ interface ChatDataSource {
     suspend fun sendMessage(
         roomId: Long,
         content: String,
-        messageType: String
+        messageType: String,
     ): ChatMessageEntity
 
     /**
@@ -66,7 +68,7 @@ interface ChatDataSource {
     suspend fun getMessageHistory(
         roomId: Long,
         page: Int,
-        size: Int
+        size: Int,
     ): ChatMessageHistoryEntity
 
     /**

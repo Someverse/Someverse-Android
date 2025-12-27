@@ -15,7 +15,7 @@ data class User(
     val bio: String?,
     val job: String?,
     val favoriteMovies: List<Movie>?,
-    val preferredGenres: List<Genre>?
+    val preferredGenres: List<Genre>?,
 )
 
 /**
@@ -23,7 +23,7 @@ data class User(
  */
 data class Location(
     val city: String,
-    val district: String
+    val district: String,
 )
 
 /**
@@ -31,7 +31,7 @@ data class Location(
  */
 data class Genre(
     val genreId: Long,
-    val name: String
+    val name: String,
 )
 
 /**
@@ -39,5 +39,5 @@ data class Genre(
  */
 data class ProfileImages(
     val images: List<String>,
-    val primaryImageIndex: Int
+    val primaryImageIndex: Int,
 )

@@ -9,30 +9,29 @@ import javax.inject.Inject
  * - Retrieves a list of available locations for user selection
  * - Delegates to AuthRepository
  */
-class GetAddressListUseCase @Inject constructor(
-    private val authRepository: AuthRepository
-) {
-
-    /**
-     * Get list of available locations (city + district)
-     *
-     * @return Result<List<Location>> list of locations or failure
-     *
-     * Example response structure:
-     * {
-     *   "locations": [
-     *     {
-     *       "city": "서울특별시",
-     *       "district": "강남구"
-     *     },
-     *     {
-     *       "city": "경기도",
-     *       "district": "광명시"
-     *     }
-     *   ]
-     * }
-     */
-    suspend operator fun invoke(): Result<List<Location>> {
-        return authRepository.getAddressList()
+class GetAddressListUseCase
+    @Inject
+    constructor(
+        private val authRepository: AuthRepository,
+    ) {
+        /**
+         * Get list of available locations (city + district)
+         *
+         * @return Result<List<Location>> list of locations or failure
+         *
+         * Example response structure:
+         * {
+         *   "locations": [
+         *     {
+         *       "city": "서울특별시",
+         *       "district": "강남구"
+         *     },
+         *     {
+         *       "city": "경기도",
+         *       "district": "광명시"
+         *     }
+         *   ]
+         * }
+         */
+        suspend operator fun invoke(): Result<List<Location>> = authRepository.getAddressList()
     }
-}

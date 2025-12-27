@@ -12,37 +12,32 @@ import com.someverse.domain.model.AuthToken
 data class AuthTokenEntity(
     @SerializedName("access_token")
     val accessToken: String,
-
     @SerializedName("refresh_token")
     val refreshToken: String,
-
     @SerializedName("expires_in")
     val expiresIn: Long,
-
     @SerializedName("token_type")
-    val tokenType: String = "Bearer"
+    val tokenType: String = "Bearer",
 ) {
     /**
      * Convert AuthTokenEntity (data) to AuthToken (domain)
      */
-    fun toDomain(): AuthToken {
-        return AuthToken(
+    fun toDomain(): AuthToken =
+        AuthToken(
             accessToken = accessToken,
             refreshToken = refreshToken,
             expiresIn = expiresIn,
-            tokenType = tokenType
+            tokenType = tokenType,
         )
-    }
 }
 
 /**
  * Extension function to convert domain AuthToken to AuthTokenEntity
  */
-fun AuthToken.toEntity(): AuthTokenEntity {
-    return AuthTokenEntity(
+fun AuthToken.toEntity(): AuthTokenEntity =
+    AuthTokenEntity(
         accessToken = accessToken,
         refreshToken = refreshToken,
         expiresIn = expiresIn,
-        tokenType = tokenType
+        tokenType = tokenType,
     )
-}

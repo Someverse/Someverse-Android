@@ -32,7 +32,7 @@ import com.someverse.presentation.ui.theme.PrimaryPurple
 @Composable
 fun WaitingRoomScreen(
     onBackClick: () -> Unit,
-    viewModel: WaitingRoomViewModel = hiltViewModel()
+    viewModel: WaitingRoomViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -41,21 +41,22 @@ fun WaitingRoomScreen(
             SimpleTopBar(
                 title = "대기방",
                 onBackClick = onBackClick,
-                backgroundColor = Background
+                backgroundColor = Background,
             )
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .background(Background)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .background(Background),
         ) {
             when {
                 uiState.isLoading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
-                        color = PrimaryPurple
+                        color = PrimaryPurple,
                     )
                 }
 
@@ -63,13 +64,13 @@ fun WaitingRoomScreen(
                     Text(
                         text = uiState.error ?: "Error",
                         modifier = Modifier.align(Alignment.Center),
-                        color = Color.Red
+                        color = Color.Red,
                     )
                 }
 
                 else -> {
                     WaitingRoomContent(
-                        chatList = uiState.chatList
+                        chatList = uiState.chatList,
                     )
                 }
             }
@@ -78,19 +79,18 @@ fun WaitingRoomScreen(
 }
 
 @Composable
-private fun WaitingRoomContent(
-    chatList: List<Chat>
-) {
+private fun WaitingRoomContent(chatList: List<Chat>) {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
     ) {
         items(chatList) { chat ->
             ChatListItem(chat = chat)
             HorizontalDivider(
                 color = Divider,
-                thickness = 1.dp
+                thickness = 1.dp,
             )
         }
     }

@@ -9,7 +9,6 @@ import retrofit2.http.GET
  * - Defines Retrofit API endpoints for point (루미) functionality
  */
 interface PointApiService {
-
     /**
      * Get point balance
      * GET /points/balance

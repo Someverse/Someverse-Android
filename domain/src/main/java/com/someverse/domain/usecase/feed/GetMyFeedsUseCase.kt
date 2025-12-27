@@ -10,18 +10,19 @@ import javax.inject.Inject
  * - Business logic: Sort feeds by ID (most recent first)
  * - Delegates to FeedRepository
  */
-class GetMyFeedsUseCase @Inject constructor(
-    private val feedRepository: FeedRepository
-) {
-    /**
-     * Get all feeds created by current user
-     *
-     * @return Result<List<Feed>> list of user's feeds sorted by ID descending
-     */
-    suspend operator fun invoke(): Result<List<Feed>> {
-        return feedRepository.getMyFeeds().map { feeds ->
-            // Business logic: Sort by ID (most recent first)
-            feeds.sortedByDescending { it.id }
-        }
+class GetMyFeedsUseCase
+    @Inject
+    constructor(
+        private val feedRepository: FeedRepository,
+    ) {
+        /**
+         * Get all feeds created by current user
+         *
+         * @return Result<List<Feed>> list of user's feeds sorted by ID descending
+         */
+        suspend operator fun invoke(): Result<List<Feed>> =
+            feedRepository.getMyFeeds().map { feeds ->
+                // Business logic: Sort by ID (most recent first)
+                feeds.sortedByDescending { it.id }
+            }
     }
-}

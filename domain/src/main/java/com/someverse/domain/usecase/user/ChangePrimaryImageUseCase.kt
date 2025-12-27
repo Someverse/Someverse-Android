@@ -7,10 +7,10 @@ import javax.inject.Inject
  * Change Primary Image UseCase
  * PUT /users/profile/me/images/primary
  */
-class ChangePrimaryImageUseCase @Inject constructor(
-    private val userRepository: UserRepository
-) {
-    suspend operator fun invoke(primaryIndex: Int): Result<Unit> {
-        return userRepository.changePrimaryImage(primaryIndex)
+class ChangePrimaryImageUseCase
+    @Inject
+    constructor(
+        private val userRepository: UserRepository,
+    ) {
+        suspend operator fun invoke(primaryIndex: Int): Result<Unit> = userRepository.changePrimaryImage(primaryIndex)
     }
-}

@@ -16,17 +16,16 @@ import com.someverse.presentation.ui.theme.PrimaryPurple
 import com.someverse.presentation.ui.theme.White
 
 @Composable
-fun UnreadBadge(
-    count: Int
-) {
+fun UnreadBadge(count: Int) {
     val displayText = if (count > 99) "99+" else count.toString()
 
     Box(
-        modifier = Modifier
-            .size(20.dp)
-            .clip(CircleShape)
-            .background(PrimaryPurple),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .size(20.dp)
+                .clip(CircleShape)
+                .background(PrimaryPurple),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = displayText,
@@ -34,7 +33,7 @@ fun UnreadBadge(
             fontWeight = FontWeight.SemiBold,
             color = White,
             letterSpacing = (-0.3).sp,
-            lineHeight = (12 * 1.2).sp
+            lineHeight = (12 * 1.2).sp,
         )
     }
 }

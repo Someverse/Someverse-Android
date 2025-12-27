@@ -40,10 +40,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -69,7 +69,7 @@ import java.util.Locale
 @Composable
 fun DetailChatScreen(
     onBackClick: () -> Unit,
-    viewModel: DetailChatViewModel = hiltViewModel()
+    viewModel: DetailChatViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var messageText by remember { mutableStateOf("") }
@@ -89,21 +89,22 @@ fun DetailChatScreen(
                 onBackClick = onBackClick,
                 actionIconRes = R.drawable.ic_report,
                 onActionClick = { /* TODO: Open notifications */ },
-                backgroundColor = Color.White
+                backgroundColor = Color.White,
             )
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .background(ChatBackground)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .background(ChatBackground),
         ) {
             when {
                 uiState.isLoading && uiState.messages.isEmpty() -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
-                        color = PrimaryPurple
+                        color = PrimaryPurple,
                     )
                 }
 
@@ -111,20 +112,20 @@ fun DetailChatScreen(
                     Text(
                         text = uiState.error ?: "Error",
                         modifier = Modifier.align(Alignment.Center),
-                        color = Color.Red
+                        color = Color.Red,
                     )
                 }
 
                 else -> {
                     Column(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         MessageList(
                             messages = uiState.messages,
                             partnerProfileImage = uiState.partnerProfileImage,
                             listState = listState,
                             onLoadMore = { viewModel.loadMoreMessages() },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
                         )
 
                         MessageInputBar(
@@ -134,7 +135,7 @@ fun DetailChatScreen(
                                 viewModel.sendMessage(messageText)
                                 messageText = ""
                             },
-                            isSending = uiState.isSending
+                            isSending = uiState.isSending,
                         )
                     }
                 }
@@ -149,40 +150,42 @@ private fun MessageList(
     partnerProfileImage: String?,
     listState: androidx.compose.foundation.lazy.LazyListState,
     onLoadMore: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         state = listState,
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         // Group messages by date
-        val groupedMessages = messages.groupBy { message ->
-            try {
-                val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-                val date = inputFormat.parse(message.createdAt)
-                date?.let {
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    dateFormat.format(it)
+        val groupedMessages =
+            messages.groupBy { message ->
+                try {
+                    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+                    val date = inputFormat.parse(message.createdAt)
+                    date?.let {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        dateFormat.format(it)
+                    }
+                } catch (e: Exception) {
+                    null
                 }
-            } catch (e: Exception) {
-                null
             }
-        }
 
         groupedMessages.forEach { (dateString, messagesForDate) ->
             // Date separator
             if (dateString != null) {
                 item {
-                    val displayFormat = try {
-                        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        val date = inputFormat.parse(dateString)
-                        val outputFormat = SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN)
-                        date?.let { outputFormat.format(it) } ?: dateString
-                    } catch (e: Exception) {
-                        dateString
-                    }
+                    val displayFormat =
+                        try {
+                            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                            val date = inputFormat.parse(dateString)
+                            val outputFormat = SimpleDateFormat("yyyy.MM.dd(E)", Locale.KOREAN)
+                            date?.let { outputFormat.format(it) } ?: dateString
+                        } catch (e: Exception) {
+                            dateString
+                        }
                     DateSeparator(date = displayFormat)
                 }
             }
@@ -191,7 +194,7 @@ private fun MessageList(
             items(messagesForDate) { message ->
                 MessageItem(
                     message = message,
-                    partnerProfileImage = partnerProfileImage
+                    partnerProfileImage = partnerProfileImage,
                 )
             }
         }
@@ -215,18 +218,20 @@ private fun MessageList(
 @Composable
 private fun DateSeparator(date: String) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        horizontalArrangement = Arrangement.Center
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        horizontalArrangement = Arrangement.Center,
     ) {
         // Left line
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(1.dp)
-                .align(Alignment.CenterVertically)
-                .background(Color(0xFFF3F5F7))
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .height(1.dp)
+                    .align(Alignment.CenterVertically)
+                    .background(Color(0xFFF3F5F7)),
         )
 
         Spacer(modifier = Modifier.width(8.dp))
@@ -234,24 +239,27 @@ private fun DateSeparator(date: String) {
         // Date text
         Text(
             text = date,
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontFamily = PretendardFontFamily,
-                fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
-                lineHeight = 14.4.sp,
-                color = ChipGray
-            ).withLetterSpacingPercent(-2.5f)
+            style =
+                MaterialTheme.typography.bodySmall
+                    .copy(
+                        fontFamily = PretendardFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp,
+                        lineHeight = 14.4.sp,
+                        color = ChipGray,
+                    ).withLetterSpacingPercent(-2.5f),
         )
 
         Spacer(modifier = Modifier.width(8.dp))
 
         // Right line
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .height(1.dp)
-                .align(Alignment.CenterVertically)
-                .background(Color(0xFFF3F5F7))
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .height(1.dp)
+                    .align(Alignment.CenterVertically)
+                    .background(Color(0xFFF3F5F7)),
         )
     }
 }
@@ -259,7 +267,7 @@ private fun DateSeparator(date: String) {
 @Composable
 private fun MessageItem(
     message: ChatMessage,
-    partnerProfileImage: String?
+    partnerProfileImage: String?,
 ) {
     // Determine if this is my message (assuming senderId != current user for demo)
     // TODO: Get current user ID from auth state
@@ -269,30 +277,32 @@ private fun MessageItem(
         // My message (right aligned, purple background)
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            horizontalArrangement = Arrangement.End,
         ) {
             Box(
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFFEBE2FF),
-                        shape = RoundedCornerShape(
-                            topStart = 8.dp,
-                            topEnd = 0.dp,
-                            bottomStart = 8.dp,
-                            bottomEnd = 8.dp
-                        )
-                    )
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
+                modifier =
+                    Modifier
+                        .background(
+                            color = Color(0xFFEBE2FF),
+                            shape =
+                                RoundedCornerShape(
+                                    topStart = 8.dp,
+                                    topEnd = 0.dp,
+                                    bottomStart = 8.dp,
+                                    bottomEnd = 8.dp,
+                                ),
+                        ).padding(horizontal = 12.dp, vertical = 8.dp),
             ) {
                 Text(
                     text = message.content,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = PretendardFontFamily,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp,
-                        lineHeight = 14.4.sp,
-                        color = Color(0xFF050505)
-                    )
+                    style =
+                        MaterialTheme.typography.bodySmall.copy(
+                            fontFamily = PretendardFontFamily,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 12.sp,
+                            lineHeight = 14.4.sp,
+                            color = Color(0xFF050505),
+                        ),
                 )
             }
         }
@@ -300,14 +310,15 @@ private fun MessageItem(
         // Partner's message (left aligned, pink background)
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Start,
         ) {
             // Profile image
             Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFD9D9D9))
+                modifier =
+                    Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFFD9D9D9)),
             ) {
                 // TODO: Load actual profile image
             }
@@ -316,27 +327,29 @@ private fun MessageItem(
 
             // Message bubble
             Box(
-                modifier = Modifier
-                    .background(
-                        color = Color(0xFFFFE6F3),
-                        shape = RoundedCornerShape(
-                            topStart = 0.dp,
-                            topEnd = 8.dp,
-                            bottomStart = 8.dp,
-                            bottomEnd = 8.dp
-                        )
-                    )
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
+                modifier =
+                    Modifier
+                        .background(
+                            color = Color(0xFFFFE6F3),
+                            shape =
+                                RoundedCornerShape(
+                                    topStart = 0.dp,
+                                    topEnd = 8.dp,
+                                    bottomStart = 8.dp,
+                                    bottomEnd = 8.dp,
+                                ),
+                        ).padding(horizontal = 12.dp, vertical = 8.dp),
             ) {
                 Text(
                     text = message.content,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = PretendardFontFamily,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp,
-                        lineHeight = 14.4.sp,
-                        color = Color.Black
-                    )
+                    style =
+                        MaterialTheme.typography.bodySmall.copy(
+                            fontFamily = PretendardFontFamily,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 12.sp,
+                            lineHeight = 14.4.sp,
+                            color = Color.Black,
+                        ),
                 )
             }
         }
@@ -348,7 +361,7 @@ private fun MessageInputBar(
     messageText: String,
     onMessageChange: (String) -> Unit,
     onSendClick: () -> Unit,
-    isSending: Boolean
+    isSending: Boolean,
 ) {
     val density = LocalDensity.current
     val imeInsets = WindowInsets.ime
@@ -360,68 +373,72 @@ private fun MessageInputBar(
     val keyboardPadding = (imeHeight - navBarHeight).coerceAtLeast(0.dp)
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(ChatInputBackground)
-            .padding(bottom = keyboardPadding)
-            .padding(horizontal = 13.dp, vertical = 8.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(ChatInputBackground)
+                .padding(bottom = keyboardPadding)
+                .padding(horizontal = 13.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         // Input field
         BasicTextField(
             value = messageText,
             onValueChange = onMessageChange,
-            modifier = Modifier
-                .weight(1f)
-                .height(40.dp)
-                .background(White, RoundedCornerShape(8.dp))
-                .padding(horizontal = 12.dp, vertical = 10.dp),
-            textStyle = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = PretendardFontFamily,
-                fontSize = 14.sp,
-                color = Color.Black
-            ),
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .height(40.dp)
+                    .background(White, RoundedCornerShape(8.dp))
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
+            textStyle =
+                MaterialTheme.typography.bodyMedium.copy(
+                    fontFamily = PretendardFontFamily,
+                    fontSize = 14.sp,
+                    color = Color.Black,
+                ),
             singleLine = true,
             decorationBox = { innerTextField ->
                 Box {
                     if (messageText.isEmpty()) {
                         Text(
                             text = "메시지를 입력하세요",
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontFamily = PretendardFontFamily,
-                                color = ChipGray,
-                                fontSize = 14.sp
-                            )
+                            style =
+                                MaterialTheme.typography.bodyMedium.copy(
+                                    fontFamily = PretendardFontFamily,
+                                    color = ChipGray,
+                                    fontSize = 14.sp,
+                                ),
                         )
                     }
                     innerTextField()
                 }
-            }
+            },
         )
 
         // Send button
         Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(
-                    color = if (messageText.isNotBlank()) PrimaryPurple else Color(0xFFE0E0E0),
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .then(
-                    if (messageText.isNotBlank() && !isSending) {
-                        Modifier.clickable(onClick = onSendClick)
-                    } else {
-                        Modifier
-                    }
-                ),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .size(40.dp)
+                    .background(
+                        color = if (messageText.isNotBlank()) PrimaryPurple else Color(0xFFE0E0E0),
+                        shape = RoundedCornerShape(8.dp),
+                    ).then(
+                        if (messageText.isNotBlank() && !isSending) {
+                            Modifier.clickable(onClick = onSendClick)
+                        } else {
+                            Modifier
+                        },
+                    ),
+            contentAlignment = Alignment.Center,
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_send_message),
                 contentDescription = "전송",
                 tint = Color.White,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
             )
         }
     }

@@ -29,7 +29,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
-
     // ==================== DataSources ====================
 
     /**
@@ -122,40 +121,30 @@ object DataModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        dataSource: AuthDataSource  // Interface 주입!
-    ): AuthRepository {
-        return AuthRepositoryImpl(dataSource)
-    }
+        dataSource: AuthDataSource, // Interface 주입!
+    ): AuthRepository = AuthRepositoryImpl(dataSource)
 
     @Provides
     @Singleton
     fun provideChatRepository(
-        dataSource: ChatDataSource  // Interface 주입!
-    ): ChatRepository {
-        return ChatRepositoryImpl(dataSource)
-    }
+        dataSource: ChatDataSource, // Interface 주입!
+    ): ChatRepository = ChatRepositoryImpl(dataSource)
 
     @Provides
     @Singleton
     fun provideFeedRepository(
-        dataSource: FeedDataSource  // Interface 주입!
-    ): FeedRepository {
-        return FeedRepositoryImpl(dataSource)
-    }
+        dataSource: FeedDataSource, // Interface 주입!
+    ): FeedRepository = FeedRepositoryImpl(dataSource)
 
     @Provides
     @Singleton
     fun providePointRepository(
-        dataSource: PointDataSource  // Interface 주입!
-    ): PointRepository {
-        return PointRepositoryImpl(dataSource)
-    }
+        dataSource: PointDataSource, // Interface 주입!
+    ): PointRepository = PointRepositoryImpl(dataSource)
 
     @Provides
     @Singleton
     fun provideFileRepository(
-        dataSource: FileDataSource  // Interface 주입!
-    ): FileRepository {
-        return FileRepositoryImpl(dataSource)
-    }
+        dataSource: FileDataSource, // Interface 주입!
+    ): FileRepository = FileRepositoryImpl(dataSource)
 }

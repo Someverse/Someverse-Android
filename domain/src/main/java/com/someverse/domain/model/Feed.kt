@@ -7,7 +7,7 @@ data class Feed(
     val id: Long,
     val content: String,
     val nickName: String,
-    val profileImage: String?
+    val profileImage: String?,
 )
 
 /**
@@ -15,5 +15,5 @@ data class Feed(
  */
 enum class FeedType {
     MOVIE,
-    MUSIC
+    MUSIC,
 }

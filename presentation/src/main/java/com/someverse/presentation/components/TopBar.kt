@@ -27,27 +27,28 @@ fun SimpleTopBar(
     modifier: Modifier = Modifier,
     title: String = "",
     onBackClick: (() -> Unit)? = null,
-    backgroundColor: Color = Color.Transparent
+    backgroundColor: Color = Color.Transparent,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(backgroundColor)
-            .padding(horizontal = Dimensions.space16),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(backgroundColor)
+                .padding(horizontal = Dimensions.space16),
+        contentAlignment = Alignment.Center,
     ) {
         // 뒤로가기 버튼 (왼쪽)
         if (onBackClick != null) {
             IconButton(
                 onClick = onBackClick,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_dismiss),
                     contentDescription = "뒤로가기",
                     modifier = Modifier.size(24.dp),
-                    tint = Color(0xFF9098A6)
+                    tint = Color(0xFF9098A6),
                 )
             }
         }
@@ -56,15 +57,17 @@ fun SimpleTopBar(
         if (title.isNotEmpty()) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp,
-                    lineHeight = 28.sp,
-                    textAlign = TextAlign.Center,
-                    fontFamily = PretendardFontFamily
-                ).withLetterSpacingPercent(-2.5f),
+                style =
+                    MaterialTheme.typography.titleMedium
+                        .copy(
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 18.sp,
+                            lineHeight = 28.sp,
+                            textAlign = TextAlign.Center,
+                            fontFamily = PretendardFontFamily,
+                        ).withLetterSpacingPercent(-2.5f),
                 color = Black,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
     }
@@ -89,27 +92,28 @@ fun TopBarWithAction(
     actionIconRes: Int? = null,
     onActionClick: (() -> Unit)? = null,
     actionEnabled: Boolean = true,
-    backgroundColor: Color = Color.Transparent
+    backgroundColor: Color = Color.Transparent,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(backgroundColor)
-            .padding(horizontal = Dimensions.space16),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(backgroundColor)
+                .padding(horizontal = Dimensions.space16),
+        contentAlignment = Alignment.Center,
     ) {
         // 뒤로가기 버튼 (왼쪽)
         if (onBackClick != null) {
             IconButton(
                 onClick = onBackClick,
-                modifier = Modifier.align(Alignment.CenterStart)
+                modifier = Modifier.align(Alignment.CenterStart),
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_dismiss),
                     contentDescription = "뒤로가기",
                     modifier = Modifier.size(24.dp),
-                    tint = Color(0xFF9098A6)
+                    tint = Color(0xFF9098A6),
                 )
             }
         }
@@ -118,15 +122,17 @@ fun TopBarWithAction(
         if (title.isNotEmpty()) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp,
-                    lineHeight = 28.sp,
-                    textAlign = TextAlign.Center,
-                    fontFamily = PretendardFontFamily
-                ).withLetterSpacingPercent(-2.5f),
+                style =
+                    MaterialTheme.typography.titleMedium
+                        .copy(
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 18.sp,
+                            lineHeight = 28.sp,
+                            textAlign = TextAlign.Center,
+                            fontFamily = PretendardFontFamily,
+                        ).withLetterSpacingPercent(-2.5f),
                 color = Black,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
             )
         }
 
@@ -138,13 +144,13 @@ fun TopBarWithAction(
                     IconButton(
                         onClick = onActionClick,
                         enabled = actionEnabled,
-                        modifier = Modifier.align(Alignment.CenterEnd)
+                        modifier = Modifier.align(Alignment.CenterEnd),
                     ) {
                         Icon(
                             painter = painterResource(id = actionIconRes),
                             contentDescription = "액션",
                             modifier = Modifier.size(24.dp),
-                            tint = if (actionEnabled) Color(0xFF616772) else DescGray
+                            tint = if (actionEnabled) Color(0xFF616772) else DescGray,
                         )
                     }
                 }
@@ -153,14 +159,17 @@ fun TopBarWithAction(
                     // 텍스트 액션
                     Text(
                         text = actionText,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Medium,
-                            fontFamily = PretendardFontFamily
-                        ).withLetterSpacingPercent(-2.5f),
+                        style =
+                            MaterialTheme.typography.bodyMedium
+                                .copy(
+                                    fontWeight = FontWeight.Medium,
+                                    fontFamily = PretendardFontFamily,
+                                ).withLetterSpacingPercent(-2.5f),
                         color = if (actionEnabled) PrimaryPurple else DescGray,
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .clickable(enabled = actionEnabled) { onActionClick() }
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterEnd)
+                                .clickable(enabled = actionEnabled) { onActionClick() },
                     )
                 }
             }

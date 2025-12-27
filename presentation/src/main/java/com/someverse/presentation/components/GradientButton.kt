@@ -27,35 +27,39 @@ fun GradientButton(
     enabled: Boolean,
     modifier: Modifier = Modifier,
     textStyle: androidx.compose.ui.text.TextStyle = MaterialTheme.typography.titleMedium,
-    textColor: Color = Color.White
+    textColor: Color = Color.White,
 ) {
-    val gradient = if (enabled) {
-        Brush.horizontalGradient(
-            colors = listOf(
-                GradationStart,
-                GradationEnd
+    val gradient =
+        if (enabled) {
+            Brush.horizontalGradient(
+                colors =
+                    listOf(
+                        GradationStart,
+                        GradationEnd,
+                    ),
             )
-        )
-    } else {
-        Brush.horizontalGradient(
-            colors = listOf(
-                Color(0xFFEDE9FC),
-                Color(0xFFFCF6E9)
+        } else {
+            Brush.horizontalGradient(
+                colors =
+                    listOf(
+                        Color(0xFFEDE9FC),
+                        Color(0xFFFCF6E9),
+                    ),
             )
-        )
-    }
+        }
 
     Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
-            .background(gradient)
-            .clickable(enabled = enabled, onClick = onClick),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(gradient)
+                .clickable(enabled = enabled, onClick = onClick),
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = text,
             style = textStyle,
-            color = textColor
+            color = textColor,
         )
     }
 }

@@ -9,15 +9,15 @@ import javax.inject.Inject
  * - Business logic: None (direct delegation)
  * - Delegates to ChatRepository
  */
-class GetFreeChatCountUseCase @Inject constructor(
-    private val chatRepository: ChatRepository
-) {
-    /**
-     * Get today's remaining free chat count
-     *
-     * @return Result<Int> remaining free chat count or failure with error
-     */
-    suspend operator fun invoke(): Result<Int> {
-        return chatRepository.getFreeChatCount()
+class GetFreeChatCountUseCase
+    @Inject
+    constructor(
+        private val chatRepository: ChatRepository,
+    ) {
+        /**
+         * Get today's remaining free chat count
+         *
+         * @return Result<Int> remaining free chat count or failure with error
+         */
+        suspend operator fun invoke(): Result<Int> = chatRepository.getFreeChatCount()
     }
-}

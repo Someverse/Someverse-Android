@@ -35,39 +35,41 @@ fun TextWithImageButton(
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     cornerRadius: Float = Dimensions.radiusLarge.value,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor,
-            disabledContainerColor = backgroundColor.copy(alpha = 0.5f),
-            disabledContentColor = contentColor.copy(alpha = 0.5f)
-        ),
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = backgroundColor,
+                contentColor = contentColor,
+                disabledContainerColor = backgroundColor.copy(alpha = 0.5f),
+                disabledContentColor = contentColor.copy(alpha = 0.5f),
+            ),
         shape = RoundedCornerShape(cornerRadius),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimensions.space16)
-            .height(Dimensions.buttonHeight),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = Dimensions.space16)
+                .height(Dimensions.buttonHeight),
         enabled = enabled,
-        contentPadding = PaddingValues(horizontal = Dimensions.space16)
+        contentPadding = PaddingValues(horizontal = Dimensions.space16),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(Dimensions.space12)
+            horizontalArrangement = Arrangement.spacedBy(Dimensions.space12),
         ) {
             iconResId?.let {
                 Icon(
                     painter = painterResource(id = it),
                     contentDescription = null,
-                    modifier = Modifier.size(Dimensions.iconSize)
+                    modifier = Modifier.size(Dimensions.iconSize),
                 )
             }
 
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge
+                style = MaterialTheme.typography.labelLarge,
             )
         }
     }
@@ -80,7 +82,7 @@ fun TextWithImageButton(
 fun KakaoLoginButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     TextWithImageButton(
         text = "카카오 로그인",
@@ -90,6 +92,6 @@ fun KakaoLoginButton(
         cornerRadius = Dimensions.radiusLarge.value,
         onClick = onClick,
         modifier = modifier,
-        enabled = enabled
+        enabled = enabled,
     )
 }

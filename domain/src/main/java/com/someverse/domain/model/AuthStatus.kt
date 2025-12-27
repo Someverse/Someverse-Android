@@ -23,7 +23,7 @@ data class AuthStatus(
     val email: String,
     val realName: String?,
     val provider: SocialProvider, // Enum for type safety
-    val onboardingCompleted: Boolean
+    val onboardingCompleted: Boolean,
 ) {
     /**
      * Check if user needs to go through onboarding

@@ -8,7 +8,10 @@ import com.someverse.domain.model.UnreadCount
 
 interface ChatRepository {
     // 채팅 신청
-    suspend fun requestChat(userId: Int, message: String): Result<Chat>
+    suspend fun requestChat(
+        userId: Int,
+        message: String,
+    ): Result<Chat>
 
     // 내 채팅방 목록 조회
     suspend fun getChatList(): Result<List<Chat>>
@@ -32,14 +35,14 @@ interface ChatRepository {
     suspend fun sendMessage(
         roomId: Long,
         content: String,
-        messageType: MessageType
+        messageType: MessageType,
     ): Result<ChatMessage>
 
     // 메시지 히스토리 조회 (페이징)
     suspend fun getMessageHistory(
         roomId: Long,
         page: Int = 0,
-        size: Int = 50
+        size: Int = 50,
     ): Result<ChatMessageHistory>
 
     // 메시지 읽음 처리

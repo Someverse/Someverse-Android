@@ -14,5 +14,5 @@ data class LoginUiState(
     val provider: SocialProvider? = null,
     val isLoginSuccess: Boolean = false,
     val needsOnboarding: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
 )

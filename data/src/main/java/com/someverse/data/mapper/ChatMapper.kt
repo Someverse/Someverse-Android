@@ -17,36 +17,35 @@ import com.someverse.domain.model.UnreadCount
  * - Domain: Business logic layer
  */
 object ChatMapper {
-
     /**
      * Convert ChatEntity to Chat domain model
      */
-    fun ChatEntity.toDomain(): Chat {
-        return Chat(
+    fun ChatEntity.toDomain(): Chat =
+        Chat(
             roomId = this.roomId,
             partnerId = this.partnerId,
             partnerNickname = this.partnerNickname,
             partnerProfileImage = this.partnerProfileImage,
-            status = when (this.status.uppercase()) {
-                "PENDING" -> ChatStatus.PENDING
-                "ACTIVE" -> ChatStatus.ACTIVE
-                "CLOSED" -> ChatStatus.ClOSED
-                else -> ChatStatus.ACTIVE
-            },
+            status =
+                when (this.status.uppercase()) {
+                    "PENDING" -> ChatStatus.PENDING
+                    "ACTIVE" -> ChatStatus.ACTIVE
+                    "CLOSED" -> ChatStatus.ClOSED
+                    else -> ChatStatus.ACTIVE
+                },
             lastMessage = this.lastMessage,
             lastMessageTime = this.lastMessageTime,
             unreadCount = this.unreadCount,
             isRequester = this.isRequester,
             lumiUsed = this.lumiUsed,
-            isFreeChat = this.isFreeChat
+            isFreeChat = this.isFreeChat,
         )
-    }
 
     /**
      * Convert Chat domain model to ChatEntity
      */
-    fun Chat.toEntity(): ChatEntity {
-        return ChatEntity(
+    fun Chat.toEntity(): ChatEntity =
+        ChatEntity(
             roomId = this.roomId,
             partnerId = this.partnerId,
             partnerNickname = this.partnerNickname,
@@ -57,34 +56,33 @@ object ChatMapper {
             unreadCount = this.unreadCount,
             isRequester = this.isRequester,
             lumiUsed = this.lumiUsed,
-            isFreeChat = this.isFreeChat
+            isFreeChat = this.isFreeChat,
         )
-    }
 
     /**
      * Convert ChatMessageEntity to ChatMessage domain model
      */
-    fun ChatMessageEntity.toDomain(): ChatMessage {
-        return ChatMessage(
+    fun ChatMessageEntity.toDomain(): ChatMessage =
+        ChatMessage(
             messageId = this.messageId,
             roomId = this.roomId,
             senderId = this.senderId,
             senderNickname = this.senderNickname,
             content = this.content,
-            messageType = when (this.messageType.uppercase()) {
-                "TEXT" -> MessageType.TEXT
-                else -> MessageType.TEXT
-            },
+            messageType =
+                when (this.messageType.uppercase()) {
+                    "TEXT" -> MessageType.TEXT
+                    else -> MessageType.TEXT
+                },
             isRead = this.isRead,
-            createdAt = this.createdAt
+            createdAt = this.createdAt,
         )
-    }
 
     /**
      * Convert ChatMessage domain model to ChatMessageEntity
      */
-    fun ChatMessage.toEntity(): ChatMessageEntity {
-        return ChatMessageEntity(
+    fun ChatMessage.toEntity(): ChatMessageEntity =
+        ChatMessageEntity(
             messageId = this.messageId,
             roomId = this.roomId,
             senderId = this.senderId,
@@ -92,34 +90,28 @@ object ChatMapper {
             content = this.content,
             messageType = this.messageType.name,
             isRead = this.isRead,
-            createdAt = this.createdAt
+            createdAt = this.createdAt,
         )
-    }
 
     /**
      * Convert ChatMessageHistoryEntity to ChatMessageHistory domain model
      */
-    fun ChatMessageHistoryEntity.toDomain(): ChatMessageHistory {
-        return ChatMessageHistory(
+    fun ChatMessageHistoryEntity.toDomain(): ChatMessageHistory =
+        ChatMessageHistory(
             messages = this.messages.map { it.toDomain() },
             currentPage = this.currentPage,
             totalPages = this.totalPages,
             totalElements = this.totalElements,
-            hasNext = this.hasNext
+            hasNext = this.hasNext,
         )
-    }
 
     /**
      * Convert UnreadCount domain model to Int (for Entity)
      */
-    fun UnreadCount.toInt(): Int {
-        return this.unreadCount
-    }
+    fun UnreadCount.toInt(): Int = this.unreadCount
 
     /**
      * Convert Int to UnreadCount domain model
      */
-    fun Int.toUnreadCount(): UnreadCount {
-        return UnreadCount(unreadCount = this)
-    }
+    fun Int.toUnreadCount(): UnreadCount = UnreadCount(unreadCount = this)
 }

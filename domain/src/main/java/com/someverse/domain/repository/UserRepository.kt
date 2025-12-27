@@ -6,7 +6,6 @@ import com.someverse.domain.model.*
  * User Repository Interface
  */
 interface UserRepository {
-
     // Profile Management
 
     /**

@@ -22,7 +22,7 @@ data class CreateFeedUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val isSuccess: Boolean = false,
-    val isSaveEnabled: Boolean = false
+    val isSaveEnabled: Boolean = false,
 )
 
 /**
@@ -32,90 +32,95 @@ data class CreateFeedUiState(
  * - No business logic (delegates to UseCase)
  */
 @HiltViewModel
-class CreateFeedViewModel @Inject constructor(
-    private val createFeedUseCase: CreateFeedUseCase
-) : ViewModel() {
+class CreateFeedViewModel
+    @Inject
+    constructor(
+        private val createFeedUseCase: CreateFeedUseCase,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow(CreateFeedUiState())
+        val uiState: StateFlow<CreateFeedUiState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(CreateFeedUiState())
-    val uiState: StateFlow<CreateFeedUiState> = _uiState.asStateFlow()
-
-    /**
-     * Update content
-     */
-    fun onContentChange(content: String) {
-        _uiState.update {
-            it.copy(
-                content = content,
-                isSaveEnabled = content.isNotBlank() && it.selectedMovieId != null
-            )
-        }
-    }
-
-    /**
-     * Select movie
-     */
-    fun onMovieSelected(movieId: Long, movieTitle: String) {
-        _uiState.update {
-            it.copy(
-                selectedMovieId = movieId,
-                selectedMovieTitle = movieTitle,
-                isSaveEnabled = it.content.isNotBlank()
-            )
-        }
-    }
-
-    /**
-     * Save feed
-     */
-    fun onSaveClick() {
-        val currentState = _uiState.value
-        if (currentState.selectedMovieId == null) {
-            _uiState.update { it.copy(error = "영화를 선택해주세요") }
-            return
+        /**
+         * Update content
+         */
+        fun onContentChange(content: String) {
+            _uiState.update {
+                it.copy(
+                    content = content,
+                    isSaveEnabled = content.isNotBlank() && it.selectedMovieId != null,
+                )
+            }
         }
 
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, error = null) }
+        /**
+         * Select movie
+         */
+        fun onMovieSelected(
+            movieId: Long,
+            movieTitle: String,
+        ) {
+            _uiState.update {
+                it.copy(
+                    selectedMovieId = movieId,
+                    selectedMovieTitle = movieTitle,
+                    isSaveEnabled = it.content.isNotBlank(),
+                )
+            }
+        }
 
-            val result = createFeedUseCase(
-                feedType = FeedType.MOVIE,
-                movieId = currentState.selectedMovieId,
-                musicId = null,
-                content = currentState.content
-            )
+        /**
+         * Save feed
+         */
+        fun onSaveClick() {
+            val currentState = _uiState.value
+            if (currentState.selectedMovieId == null) {
+                _uiState.update { it.copy(error = "영화를 선택해주세요") }
+                return
+            }
 
-            result.fold(
-                onSuccess = {
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            isSuccess = true
-                        )
-                    }
-                },
-                onFailure = { error ->
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = error.message ?: "피드 생성에 실패했습니다"
-                        )
-                    }
-                }
-            )
+            viewModelScope.launch {
+                _uiState.update { it.copy(isLoading = true, error = null) }
+
+                val result =
+                    createFeedUseCase(
+                        feedType = FeedType.MOVIE,
+                        movieId = currentState.selectedMovieId,
+                        musicId = null,
+                        content = currentState.content,
+                    )
+
+                result.fold(
+                    onSuccess = {
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                isSuccess = true,
+                            )
+                        }
+                    },
+                    onFailure = { error ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = error.message ?: "피드 생성에 실패했습니다",
+                            )
+                        }
+                    },
+                )
+            }
+        }
+
+        /**
+         * Clear error
+         */
+        fun clearError() {
+            _uiState.update { it.copy(error = null) }
+        }
+
+        /**
+         * Reset success state
+         */
+        fun resetSuccess() {
+            _uiState.update { it.copy(isSuccess = false) }
         }
     }
-
-    /**
-     * Clear error
-     */
-    fun clearError() {
-        _uiState.update { it.copy(error = null) }
-    }
-
-    /**
-     * Reset success state
-     */
-    fun resetSuccess() {
-        _uiState.update { it.copy(isSuccess = false) }
-    }
-}

@@ -27,9 +27,7 @@ import kotlinx.coroutines.delay
  * - 로고와 함께 브랜드 아이덴티티를 표현
  */
 @Composable
-fun SplashScreen(
-    onSplashFinished: () -> Unit
-) {
+fun SplashScreen(onSplashFinished: () -> Unit) {
     val view = LocalView.current
     val window = (view.context as? Activity)?.window
 
@@ -38,7 +36,7 @@ fun SplashScreen(
         window?.let {
             // 시스템 바 아이콘을 검은색으로 설정
             WindowCompat.getInsetsController(it, view)?.apply {
-                isAppearanceLightStatusBars = true  // 밝은 배경용 (검은 아이콘)
+                isAppearanceLightStatusBars = true // 밝은 배경용 (검은 아이콘)
                 isAppearanceLightNavigationBars = true
             }
         }
@@ -54,27 +52,29 @@ fun SplashScreen(
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        GradationStart,
-                        GradationEnd
-                    )
-                )
-            ),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors =
+                            listOf(
+                                GradationStart,
+                                GradationEnd,
+                            ),
+                    ),
+                ),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             // 로고 이미지
             Image(
                 painter = painterResource(id = R.drawable.ic_splash_logo),
                 contentDescription = "Someverse Logo",
-                modifier = Modifier.size(70.dp)
+                modifier = Modifier.size(70.dp),
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -84,7 +84,7 @@ fun SplashScreen(
                 text = "Someverse",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color = Color.White,
             )
         }
     }

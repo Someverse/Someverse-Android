@@ -3,8 +3,8 @@ package com.someverse.domain.repository
 import com.someverse.domain.model.AuthStatus
 import com.someverse.domain.model.AuthToken
 import com.someverse.domain.model.Gender
-import com.someverse.domain.model.User
 import com.someverse.domain.model.Location
+import com.someverse.domain.model.User
 
 /**
  * Authentication Repository Interface
@@ -19,7 +19,6 @@ import com.someverse.domain.model.Location
  * 3. If onboarding complete, fetch full profile via UserRepository
  */
 interface AuthRepository {
-
     // ==================== Authentication ====================
 
     /**

@@ -16,7 +16,6 @@ import java.io.File
  * 3. Client uses URL for other operations
  */
 interface FileRepository {
-
     /**
      * Upload single image file
      *
@@ -29,7 +28,7 @@ interface FileRepository {
      */
     suspend fun uploadImage(
         file: File,
-        folder: String = "profile-images"
+        folder: String = "profile-images",
     ): Result<String>
 
     /**
@@ -44,7 +43,7 @@ interface FileRepository {
      */
     suspend fun uploadMultipleImages(
         files: List<File>,
-        folder: String = "general"
+        folder: String = "general",
     ): Result<List<String>>
 
     /**
@@ -56,7 +55,5 @@ interface FileRepository {
      * API: DELETE /files/delete?fileUrl={url}
      * Response: { success: true, message: "파일 삭제에 성공했습니다." }
      */
-    suspend fun deleteFile(
-        fileUrl: String
-    ): Result<Unit>
+    suspend fun deleteFile(fileUrl: String): Result<Unit>
 }

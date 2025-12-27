@@ -14,89 +14,94 @@ import javax.inject.Singleton
  * - Handles API communication for feed operations
  */
 @Singleton
-class FeedRemoteDataSource @Inject constructor(
-    private val feedApiService: FeedApiService
-) : FeedDataSource {
+class FeedRemoteDataSource
+    @Inject
+    constructor(
+        private val feedApiService: FeedApiService,
+    ) : FeedDataSource {
+        override suspend fun createFeed(
+            feedType: String,
+            movieId: Long?,
+            musicId: Long?,
+            content: String,
+        ): FeedEntity {
+            val request =
+                CreateFeedRequestDto(
+                    feedType = feedType,
+                    movieId = movieId,
+                    musicId = musicId,
+                    content = content,
+                )
+            val response = feedApiService.createFeed(request)
 
-    override suspend fun createFeed(
-        feedType: String,
-        movieId: Long?,
-        musicId: Long?,
-        content: String
-    ): FeedEntity {
-        val request = CreateFeedRequestDto(
-            feedType = feedType,
-            movieId = movieId,
-            musicId = musicId,
-            content = content
-        )
-        val response = feedApiService.createFeed(request)
+            if (response.success && response.data != null) {
+                return response.data
+            } else {
+                throw Exception(response.message)
+            }
+        }
 
-        if (response.success && response.data != null) {
-            return response.data
-        } else {
-            throw Exception(response.message)
+        override suspend fun getRandomFeeds(): List<FeedEntity> {
+            val response = feedApiService.getRandomFeeds()
+
+            if (response.success && response.data != null) {
+                return response.data
+            } else {
+                throw Exception(response.message)
+            }
+        }
+
+        override suspend fun getMyFeeds(): List<FeedEntity> {
+            val response = feedApiService.getMyFeeds()
+
+            if (response.success && response.data != null) {
+                return response.data
+            } else {
+                throw Exception(response.message)
+            }
+        }
+
+        override suspend fun getFeedDetail(feedId: Long): FeedEntity {
+            val response = feedApiService.getFeedDetail(feedId)
+
+            if (response.success && response.data != null) {
+                return response.data
+            } else {
+                throw Exception(response.message)
+            }
+        }
+
+        override suspend fun updateFeed(
+            feedId: Long,
+            content: String,
+        ): FeedEntity {
+            val request = UpdateFeedRequestDto(content = content)
+            val response = feedApiService.updateFeed(feedId, request)
+
+            if (response.success && response.data != null) {
+                return response.data
+            } else {
+                throw Exception(response.message)
+            }
+        }
+
+        override suspend fun inactivateFeed(feedId: Long): Boolean {
+            val response = feedApiService.inactivateFeed(feedId)
+            return response.success
+        }
+
+        override suspend fun activateFeed(feedId: Long): FeedEntity {
+            val response = feedApiService.activateFeed(feedId)
+
+            if (response.success && response.data != null) {
+                return response.data
+            } else {
+                throw Exception(response.message)
+            }
+        }
+
+        override suspend fun inactivateAllFeeds(): Boolean {
+            val response = feedApiService.inactivateAllFeeds()
+            return response.success
         }
     }
-
-    override suspend fun getRandomFeeds(): List<FeedEntity> {
-        val response = feedApiService.getRandomFeeds()
-
-        if (response.success && response.data != null) {
-            return response.data
-        } else {
-            throw Exception(response.message)
-        }
-    }
-
-    override suspend fun getMyFeeds(): List<FeedEntity> {
-        val response = feedApiService.getMyFeeds()
-
-        if (response.success && response.data != null) {
-            return response.data
-        } else {
-            throw Exception(response.message)
-        }
-    }
-
-    override suspend fun getFeedDetail(feedId: Long): FeedEntity {
-        val response = feedApiService.getFeedDetail(feedId)
-
-        if (response.success && response.data != null) {
-            return response.data
-        } else {
-            throw Exception(response.message)
-        }
-    }
-
-    override suspend fun updateFeed(feedId: Long, content: String): FeedEntity {
-        val request = UpdateFeedRequestDto(content = content)
-        val response = feedApiService.updateFeed(feedId, request)
-
-        if (response.success && response.data != null) {
-            return response.data
-        } else {
-            throw Exception(response.message)
-        }
-    }
-
-    override suspend fun inactivateFeed(feedId: Long): Boolean {
-        val response = feedApiService.inactivateFeed(feedId)
-        return response.success
-    }
-
-    override suspend fun activateFeed(feedId: Long): FeedEntity {
-        val response = feedApiService.activateFeed(feedId)
-
-        if (response.success && response.data != null) {
-            return response.data
-        } else {
-            throw Exception(response.message)
-        }
-    }
-
-    override suspend fun inactivateAllFeeds(): Boolean {
-        val response = feedApiService.inactivateAllFeeds()
-        return response.success
-    }
-}

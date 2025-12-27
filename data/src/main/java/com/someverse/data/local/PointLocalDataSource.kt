@@ -13,14 +13,15 @@ import javax.inject.Singleton
  * - Can be replaced with Room database later for offline support
  */
 @Singleton
-class PointLocalDataSource @Inject constructor() : PointDataSource {
+class PointLocalDataSource
+    @Inject
+    constructor() : PointDataSource {
+        // Mock point balance
+        private var pointBalance = 3L
 
-    // Mock point balance
-    private var pointBalance = 3L
-
-    override suspend fun getPointBalance(): Long {
-        delay(300) // Simulate network delay
-        println("💰 Local: Fetched point balance: $pointBalance")
-        return pointBalance
+        override suspend fun getPointBalance(): Long {
+            delay(300) // Simulate network delay
+            println("💰 Local: Fetched point balance: $pointBalance")
+            return pointBalance
+        }
     }
-}

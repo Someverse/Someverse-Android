@@ -9,15 +9,15 @@ import javax.inject.Inject
  * - Single Responsibility: Retrieve random feeds
  * - Delegates to FeedRepository
  */
-class GetRandomFeedsUseCase @Inject constructor(
-    private val feedRepository: FeedRepository
-) {
-    /**
-     * Get random feeds
-     *
-     * @return Result<List<Feed>> list of random feeds
-     */
-    suspend operator fun invoke(): Result<List<Feed>> {
-        return feedRepository.getRandomFeeds()
+class GetRandomFeedsUseCase
+    @Inject
+    constructor(
+        private val feedRepository: FeedRepository,
+    ) {
+        /**
+         * Get random feeds
+         *
+         * @return Result<List<Feed>> list of random feeds
+         */
+        suspend operator fun invoke(): Result<List<Feed>> = feedRepository.getRandomFeeds()
     }
-}

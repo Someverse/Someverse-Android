@@ -11,7 +11,6 @@ import retrofit2.http.*
  * - Handles multipart/form-data for file uploads
  */
 interface FileApiService {
-
     /**
      * Upload single image file
      *
@@ -25,7 +24,7 @@ interface FileApiService {
     @POST("files/upload")
     suspend fun uploadImage(
         @Query("folder") folder: String,
-        @Part file: MultipartBody.Part
+        @Part file: MultipartBody.Part,
     ): Response<ApiResponse<String>>
 
     /**
@@ -41,7 +40,7 @@ interface FileApiService {
     @POST("files/upload/multiple")
     suspend fun uploadMultipleImages(
         @Query("folder") folder: String,
-        @Part files: List<MultipartBody.Part>
+        @Part files: List<MultipartBody.Part>,
     ): Response<ApiResponse<List<String>>>
 
     /**
@@ -54,6 +53,6 @@ interface FileApiService {
      */
     @DELETE("files/delete")
     suspend fun deleteFile(
-        @Query("fileUrl") fileUrl: String
+        @Query("fileUrl") fileUrl: String,
     ): Response<ApiResponse<Unit>>
 }

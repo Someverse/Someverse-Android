@@ -10,7 +10,6 @@ import com.someverse.domain.model.FeedType
  * - Use Result<T> for error handling
  */
 interface FeedRepository {
-
     /**
      * Create feed
      * POST /feed/created
@@ -25,7 +24,7 @@ interface FeedRepository {
         feedType: FeedType,
         movieId: Long?,
         musicId: Long?,
-        content: String
+        content: String,
     ): Result<Feed>
 
     /**
@@ -61,7 +60,10 @@ interface FeedRepository {
      * @param content Updated content
      * @return Updated Feed
      */
-    suspend fun updateFeed(feedId: Long, content: String): Result<Feed>
+    suspend fun updateFeed(
+        feedId: Long,
+        content: String,
+    ): Result<Feed>
 
     /**
      * Inactivate feed

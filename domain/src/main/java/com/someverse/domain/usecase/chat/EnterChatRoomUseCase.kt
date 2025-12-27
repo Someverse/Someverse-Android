@@ -9,24 +9,26 @@ import javax.inject.Inject
  * - Business logic: Validate room ID before entering
  * - Delegates to ChatRepository
  */
-class EnterChatRoomUseCase @Inject constructor(
-    private val chatRepository: ChatRepository
-) {
-    /**
-     * Enter a chat room
-     *
-     * @param roomId Target chat room ID to enter
-     * @return Result<Boolean> success status or failure with error
-     */
-    suspend operator fun invoke(roomId: Long): Result<Boolean> {
-        // Business logic: Validate input
-        if (roomId <= 0) {
-            return Result.failure(
-                IllegalArgumentException("Invalid room ID")
-            )
-        }
+class EnterChatRoomUseCase
+    @Inject
+    constructor(
+        private val chatRepository: ChatRepository,
+    ) {
+        /**
+         * Enter a chat room
+         *
+         * @param roomId Target chat room ID to enter
+         * @return Result<Boolean> success status or failure with error
+         */
+        suspend operator fun invoke(roomId: Long): Result<Boolean> {
+            // Business logic: Validate input
+            if (roomId <= 0) {
+                return Result.failure(
+                    IllegalArgumentException("Invalid room ID"),
+                )
+            }
 
-        // Delegate to repository
-        return chatRepository.enterChatRoom(roomId)
+            // Delegate to repository
+            return chatRepository.enterChatRoom(roomId)
+        }
     }
-}

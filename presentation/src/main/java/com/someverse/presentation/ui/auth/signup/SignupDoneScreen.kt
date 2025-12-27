@@ -30,56 +30,61 @@ import com.someverse.presentation.ui.theme.White
 @Composable
 fun SignupDoneScreen(
     onBackClick: () -> Unit = {},
-    onStartClick: () -> Unit = {}
+    onStartClick: () -> Unit = {},
 ) {
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize(),
         topBar = {
             SimpleTopBar(
                 title = stringResource(R.string.signup_done_title),
                 onBackClick = onBackClick,
-                backgroundColor = White
+                backgroundColor = White,
             )
         },
-        containerColor = White
+        containerColor = White,
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 24.dp)
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 24.dp),
             ) {
                 Spacer(modifier = Modifier.height(40.dp))
 
                 Text(
                     text = stringResource(R.string.signup_done_welcome_message),
-                    style = TextStyle(
-                        fontFamily = PretendardFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 21.sp,
-                        lineHeight = 31.5.sp,
-                        letterSpacing = (-0.525).sp
-                    ),
-                    color = Black
+                    style =
+                        TextStyle(
+                            fontFamily = PretendardFontFamily,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 21.sp,
+                            lineHeight = 31.5.sp,
+                            letterSpacing = (-0.525).sp,
+                        ),
+                    color = Black,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
                     text = stringResource(R.string.signup_done_description),
-                    style = TextStyle(
-                        fontFamily = PretendardFontFamily,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 16.sp,
-                        lineHeight = 22.sp,
-                        letterSpacing = (-0.4).sp
-                    ),
-                    color = DescGray
+                    style =
+                        TextStyle(
+                            fontFamily = PretendardFontFamily,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 16.sp,
+                            lineHeight = 22.sp,
+                            letterSpacing = (-0.4).sp,
+                        ),
+                    color = DescGray,
                 )
             }
 
@@ -87,19 +92,21 @@ fun SignupDoneScreen(
                 text = stringResource(R.string.signup_done_start_button),
                 onClick = onStartClick,
                 enabled = true,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(horizontal = 24.dp)
-                    .fillMaxWidth()
-                    .height(60.dp),
-                textStyle = TextStyle(
-                    fontFamily = PretendardFontFamily,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp,
-                    lineHeight = 26.sp,
-                    letterSpacing = (-0.45).sp
-                ),
-                textColor = White
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(horizontal = 24.dp)
+                        .fillMaxWidth()
+                        .height(60.dp),
+                textStyle =
+                    TextStyle(
+                        fontFamily = PretendardFontFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 18.sp,
+                        lineHeight = 26.sp,
+                        letterSpacing = (-0.45).sp,
+                    ),
+                textColor = White,
             )
         }
     }

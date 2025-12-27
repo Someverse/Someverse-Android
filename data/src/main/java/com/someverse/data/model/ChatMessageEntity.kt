@@ -14,7 +14,7 @@ data class ChatMessageEntity(
     val content: String,
     val messageType: String,
     val isRead: Boolean,
-    val createdAt: String
+    val createdAt: String,
 )
 
 /**
@@ -26,5 +26,5 @@ data class ChatMessageHistoryEntity(
     val currentPage: Int,
     val totalPages: Int,
     val totalElements: Int,
-    val hasNext: Boolean
+    val hasNext: Boolean,
 )

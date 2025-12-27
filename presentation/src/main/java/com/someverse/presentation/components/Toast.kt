@@ -28,7 +28,7 @@ fun Toast(
     message: String,
     onDismiss: () -> Unit,
     duration: Long = 3000L,
-    isError: Boolean = true
+    isError: Boolean = true,
 ) {
     LaunchedEffect(message) {
         if (message.isNotEmpty()) {
@@ -39,32 +39,36 @@ fun Toast(
 
     if (message.isNotEmpty()) {
         Box(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = Dimensions.space16),
-            contentAlignment = Alignment.Center
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Dimensions.space16),
+            contentAlignment = Alignment.Center,
         ) {
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 color = if (isError) Color(0xFFFF4D4D) else Color(0xFF2D2D2D),
-                shadowElevation = 4.dp
+                shadowElevation = 4.dp,
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = Dimensions.space16, vertical = Dimensions.space12),
-                    contentAlignment = Alignment.Center
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = Dimensions.space16, vertical = Dimensions.space12),
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = message,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 14.sp,
-                            fontFamily = PretendardFontFamily
-                        ).withLetterSpacingPercent(-2.5f),
+                        style =
+                            MaterialTheme.typography.bodyMedium
+                                .copy(
+                                    fontWeight = FontWeight.Medium,
+                                    fontSize = 14.sp,
+                                    fontFamily = PretendardFontFamily,
+                                ).withLetterSpacingPercent(-2.5f),
                         color = Color.White,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 }
             }
@@ -77,7 +81,7 @@ fun Toast(
  */
 data class ToastState(
     val message: String = "",
-    val isError: Boolean = true
+    val isError: Boolean = true,
 )
 
 /**
@@ -88,7 +92,7 @@ fun BoxScope.ToastMessage(
     toastState: ToastState,
     onDismiss: () -> Unit,
     duration: Long = 3000L,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (toastState.message.isNotEmpty()) {
         Toast(
@@ -96,7 +100,7 @@ fun BoxScope.ToastMessage(
             onDismiss = onDismiss,
             duration = duration,
             isError = toastState.isError,
-            modifier = modifier.align(Alignment.BottomCenter)
+            modifier = modifier.align(Alignment.BottomCenter),
         )
     }
 }

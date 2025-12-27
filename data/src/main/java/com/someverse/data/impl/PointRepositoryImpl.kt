@@ -10,11 +10,10 @@ import javax.inject.Inject
  * - Depends on PointDataSource interface (not concrete implementation)
  * - Handles error handling and data transformation
  */
-class PointRepositoryImpl @Inject constructor(
-    private val dataSource: PointDataSource // Interface injection!
-) : PointRepository {
-
-    override suspend fun getPointBalance(): Long {
-        return dataSource.getPointBalance()
+class PointRepositoryImpl
+    @Inject
+    constructor(
+        private val dataSource: PointDataSource, // Interface injection!
+    ) : PointRepository {
+        override suspend fun getPointBalance(): Long = dataSource.getPointBalance()
     }
-}

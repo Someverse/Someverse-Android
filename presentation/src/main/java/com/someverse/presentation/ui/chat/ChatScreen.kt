@@ -52,12 +52,13 @@ import com.someverse.presentation.ui.theme.TextPrimary
 @Composable
 private fun ChatTopBar() {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(56.dp)
-            .background(Background)
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(Background)
+                .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = "Someverse",
@@ -65,7 +66,7 @@ private fun ChatTopBar() {
             fontWeight = FontWeight.SemiBold,
             color = Color(0xFF616772),
             letterSpacing = (-0.5).sp,
-            lineHeight = 32.sp
+            lineHeight = 32.sp,
         )
     }
 }
@@ -78,26 +79,27 @@ private fun ChatTopBar() {
 fun ChatScreen(
     onNavigateToWaitingRoom: () -> Unit,
     onNavigateToDetailChat: (Long) -> Unit,
-    viewModel: ChatViewModel = hiltViewModel()
+    viewModel: ChatViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
             ChatTopBar()
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .background(Background)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .background(Background),
         ) {
             when {
                 uiState.isLoading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(Alignment.Center),
-                        color = PrimaryPurple
+                        color = PrimaryPurple,
                     )
                 }
 
@@ -105,7 +107,7 @@ fun ChatScreen(
                     Text(
                         text = uiState.error ?: "Error",
                         modifier = Modifier.align(Alignment.Center),
-                        color = Color.Red
+                        color = Color.Red,
                     )
                 }
 
@@ -115,7 +117,7 @@ fun ChatScreen(
                         onPendingChatClick = onNavigateToWaitingRoom,
                         onChatClick = { roomId ->
                             onNavigateToDetailChat(roomId.toLong())
-                        }
+                        },
                     )
                 }
             }
@@ -127,12 +129,13 @@ fun ChatScreen(
 private fun ChatListContent(
     chatList: List<Chat>,
     onPendingChatClick: () -> Unit,
-    onChatClick: (Int) -> Unit
+    onChatClick: (Int) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
     ) {
         // Pending chat (special card)
         val pendingChat = chatList.firstOrNull { it.status == ChatStatus.PENDING }
@@ -140,7 +143,7 @@ private fun ChatListContent(
             item {
                 PendingChatCard(
                     chat = pendingChat,
-                    onClick = onPendingChatClick
+                    onClick = onPendingChatClick,
                 )
             }
         }
@@ -150,11 +153,11 @@ private fun ChatListContent(
         items(activeChats) { chat ->
             ChatListItem(
                 chat = chat,
-                onClick = { onChatClick(chat.roomId) }
+                onClick = { onChatClick(chat.roomId) },
             )
             HorizontalDivider(
                 color = Divider,
-                thickness = 1.dp
+                thickness = 1.dp,
             )
         }
     }
@@ -163,48 +166,51 @@ private fun ChatListContent(
 @Composable
 private fun PendingChatCard(
     chat: Chat,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        GradationStart,
-                        GradationEnd
-                    )
-                ),
-                shape = RoundedCornerShape(16.dp)
-            )
-            .background(
-                color = Background,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .clickable { onClick() }
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .border(
+                    width = 1.dp,
+                    brush =
+                        Brush.linearGradient(
+                            colors =
+                                listOf(
+                                    GradationStart,
+                                    GradationEnd,
+                                ),
+                        ),
+                    shape = RoundedCornerShape(16.dp),
+                ).background(
+                    color = Background,
+                    shape = RoundedCornerShape(16.dp),
+                ).clickable { onClick() }
+                .padding(16.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             // Profile circle
             Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFEBEFF5))
-                    .align(Alignment.CenterVertically)
+                modifier =
+                    Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFFEBEFF5))
+                        .align(Alignment.CenterVertically),
             )
 
             Spacer(modifier = Modifier.width(10.dp))
 
             // Text content
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .align(Alignment.CenterVertically)
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .align(Alignment.CenterVertically),
             ) {
                 Text(
                     text = chat.partnerNickname,
@@ -212,7 +218,7 @@ private fun PendingChatCard(
                     fontWeight = FontWeight.SemiBold,
                     color = TextPrimary,
                     letterSpacing = (-0.3).sp,
-                    lineHeight = (16 * 1.2).sp
+                    lineHeight = (16 * 1.2).sp,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -221,14 +227,14 @@ private fun PendingChatCard(
                     fontWeight = FontWeight.Medium,
                     color = TextPrimary,
                     letterSpacing = (-0.3).sp,
-                    lineHeight = (14 * 1.43).sp
+                    lineHeight = (14 * 1.43).sp,
                 )
             }
 
             // Right side (time and badge)
             Column(
                 horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 if (chat.unreadCount > 0) {
                     UnreadBadge(count = chat.unreadCount)
@@ -239,7 +245,7 @@ private fun PendingChatCard(
                     fontWeight = FontWeight.Normal,
                     color = ChipGray,
                     letterSpacing = (-0.3).sp,
-                    lineHeight = (12 * 1.2).sp
+                    lineHeight = (12 * 1.2).sp,
                 )
             }
         }

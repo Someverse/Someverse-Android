@@ -10,24 +10,26 @@ import javax.inject.Inject
  * - Business logic: Validate feed ID
  * - Delegates to FeedRepository
  */
-class ActivateFeedUseCase @Inject constructor(
-    private val feedRepository: FeedRepository
-) {
-    /**
-     * Activate an inactive feed
-     *
-     * @param feedId Feed ID to activate
-     * @return Result<Feed> activated feed or failure with error
-     */
-    suspend operator fun invoke(feedId: Long): Result<Feed> {
-        // Business logic: Validate feed ID
-        if (feedId <= 0) {
-            return Result.failure(
-                IllegalArgumentException("Invalid feed ID")
-            )
-        }
+class ActivateFeedUseCase
+    @Inject
+    constructor(
+        private val feedRepository: FeedRepository,
+    ) {
+        /**
+         * Activate an inactive feed
+         *
+         * @param feedId Feed ID to activate
+         * @return Result<Feed> activated feed or failure with error
+         */
+        suspend operator fun invoke(feedId: Long): Result<Feed> {
+            // Business logic: Validate feed ID
+            if (feedId <= 0) {
+                return Result.failure(
+                    IllegalArgumentException("Invalid feed ID"),
+                )
+            }
 
-        // Delegate to repository
-        return feedRepository.activateFeed(feedId)
+            // Delegate to repository
+            return feedRepository.activateFeed(feedId)
+        }
     }
-}

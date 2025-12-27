@@ -11,20 +11,22 @@ import javax.inject.Inject
  * - Business logic: No validation needed - enum guarantees valid value
  * - Delegates to AuthRepository
  */
-class SubmitGenderUseCase @Inject constructor(
-    private val authRepository: AuthRepository
-) {
-    /**
-     * Submit user gender
-     *
-     * @param gender User's gender (MALE, FEMALE)
-     * @return Result<User> updated user with gender or failure
-     */
-    suspend operator fun invoke(gender: Gender): Result<User> {
-        // No validation needed - enum guarantees valid value!
-        // Business logic can be added here if needed
-        // e.g., logging, analytics, etc.
+class SubmitGenderUseCase
+    @Inject
+    constructor(
+        private val authRepository: AuthRepository,
+    ) {
+        /**
+         * Submit user gender
+         *
+         * @param gender User's gender (MALE, FEMALE)
+         * @return Result<User> updated user with gender or failure
+         */
+        suspend operator fun invoke(gender: Gender): Result<User> {
+            // No validation needed - enum guarantees valid value!
+            // Business logic can be added here if needed
+            // e.g., logging, analytics, etc.
 
-        return authRepository.submitGender(gender)
+            return authRepository.submitGender(gender)
+        }
     }
-}

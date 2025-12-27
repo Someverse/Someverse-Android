@@ -13,30 +13,27 @@ import com.someverse.domain.model.FeedType
  * - Domain: Business logic layer
  */
 object FeedMapper {
-
     /**
      * Convert FeedEntity to Feed domain model
      */
-    fun FeedEntity.toDomain(): Feed {
-        return Feed(
+    fun FeedEntity.toDomain(): Feed =
+        Feed(
             id = this.id,
             content = this.content,
             nickName = this.nickName,
-            profileImage = this.profileImages
+            profileImage = this.profileImages,
         )
-    }
 
     /**
      * Convert Feed domain model to FeedEntity
      */
-    fun Feed.toEntity(): FeedEntity {
-        return FeedEntity(
+    fun Feed.toEntity(): FeedEntity =
+        FeedEntity(
             id = this.id,
             content = this.content,
             nickName = this.nickName,
-            profileImages = this.profileImage
+            profileImages = this.profileImage,
         )
-    }
 
     /**
      * Convert domain parameters to CreateFeedRequestDto
@@ -45,20 +42,17 @@ object FeedMapper {
         feedType: FeedType,
         movieId: Long?,
         musicId: Long?,
-        content: String
-    ): CreateFeedRequestDto {
-        return CreateFeedRequestDto(
+        content: String,
+    ): CreateFeedRequestDto =
+        CreateFeedRequestDto(
             feedType = feedType.name,
             movieId = movieId,
             musicId = musicId,
-            content = content
+            content = content,
         )
-    }
 
     /**
      * Convert domain parameter to UpdateFeedRequestDto
      */
-    fun updateRequestDto(content: String): UpdateFeedRequestDto {
-        return UpdateFeedRequestDto(content = content)
-    }
+    fun updateRequestDto(content: String): UpdateFeedRequestDto = UpdateFeedRequestDto(content = content)
 }

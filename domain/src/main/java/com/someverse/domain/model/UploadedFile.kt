@@ -10,5 +10,5 @@ data class UploadedFile(
     val fileName: String,
     val fileSize: Long,
     val mimeType: String,
-    val uploadedAt: Long = System.currentTimeMillis()
+    val uploadedAt: Long = System.currentTimeMillis(),
 )

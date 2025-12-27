@@ -37,7 +37,7 @@ import com.someverse.presentation.ui.theme.*
 @Composable
 fun SignupLocationScreen(
     onNext: () -> Unit,
-    viewModel: SignupLocationViewModel = hiltViewModel()
+    viewModel: SignupLocationViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -53,57 +53,67 @@ fun SignupLocationScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(Dimensions.screenPadding),
-        horizontalAlignment = Alignment.Start
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(Dimensions.screenPadding),
+        horizontalAlignment = Alignment.Start,
     ) {
         Spacer(modifier = Modifier.height(Dimensions.space12))
 
         Text(
             text = "회원가입",
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp,
-                lineHeight = 32.sp,
-                textAlign = TextAlign.Center,
-                fontFamily = PretendardFontFamily
-            ).withLetterSpacingPercent(-2.5f),
+            style =
+                MaterialTheme.typography.titleMedium
+                    .copy(
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
+                        lineHeight = 32.sp,
+                        textAlign = TextAlign.Center,
+                        fontFamily = PretendardFontFamily,
+                    ).withLetterSpacingPercent(-2.5f),
             color = DescGray,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
             text = "주 활동 지역을 알려주세요.",
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.Bold,
-                fontSize = 21.sp,
-                fontFamily = PretendardFontFamily
-            ).withLineHeightPercent(150f).withLetterSpacingPercent(-2.5f),
+            style =
+                MaterialTheme.typography.titleMedium
+                    .copy(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 21.sp,
+                        fontFamily = PretendardFontFamily,
+                    ).withLineHeightPercent(150f)
+                    .withLetterSpacingPercent(-2.5f),
             textAlign = TextAlign.Start,
             color = Black,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = Dimensions.space16)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Dimensions.space16),
         )
 
         Spacer(modifier = Modifier.height(Dimensions.space4))
 
         Text(
             text = "최대 2개 지역까지 선택할 수 있어요!",
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontWeight = FontWeight.Normal,
-                lineHeight = 22.sp,
-                fontFamily = PretendardFontFamily
-            ).withLetterSpacingPercent(-2.5f),
+            style =
+                MaterialTheme.typography.labelMedium
+                    .copy(
+                        fontWeight = FontWeight.Normal,
+                        lineHeight = 22.sp,
+                        fontFamily = PretendardFontFamily,
+                    ).withLetterSpacingPercent(-2.5f),
             textAlign = TextAlign.Start,
             color = DescGray,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = Dimensions.space16)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = Dimensions.space16),
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -117,23 +127,24 @@ fun SignupLocationScreen(
             onCitySelected = { viewModel.selectItem(it) },
             onDistrictSelected = { viewModel.selectItem(it) },
             selectedCity = uiState.selectedCity,
-            selectionStep = uiState.selectionStep
+            selectionStep = uiState.selectionStep,
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // 선택된 지역 표시 - 칩 형태
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp),
-            horizontalArrangement = Arrangement.Start
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp),
+            horizontalArrangement = Arrangement.Start,
         ) {
             uiState.selectedLocations.forEach { selection ->
                 LocationChip(
                     city = selection.city,
                     district = selection.district,
-                    onRemove = { viewModel.removeLocation(selection) }
+                    onRemove = { viewModel.removeLocation(selection) },
                 )
                 Spacer(modifier = Modifier.width(8.dp))
             }
@@ -143,10 +154,11 @@ fun SignupLocationScreen(
 
         // 페이지 인디케이터
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 24.dp),
-            horizontalArrangement = Arrangement.Center
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 24.dp),
+            horizontalArrangement = Arrangement.Center,
         ) {
             repeat(5) { index ->
                 PageIndicator(isActive = index == 3)
@@ -162,10 +174,11 @@ fun SignupLocationScreen(
                 viewModel.submitLocation()
             },
             enabled = uiState.selectedLocations.isNotEmpty() && !uiState.isLoading,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(horizontal = Dimensions.space8)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(horizontal = Dimensions.space8),
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -184,47 +197,50 @@ fun LocationSelectionSection(
     onCitySelected: (String) -> Unit,
     onDistrictSelected: (String) -> Unit,
     selectedCity: String?,
-    selectionStep: SelectionStep
+    selectionStep: SelectionStep,
 ) {
     val arrowRotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
-        label = "arrow rotation"
+        label = "arrow rotation",
     )
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = Dimensions.screenPadding)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Dimensions.screenPadding),
     ) {
         // 드롭다운 헤더 - 항상 "지역을 검색하세요" 표시
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .zIndex(1f)
-                .clip(RoundedCornerShape(16.dp))
-                .height(56.dp)
-                .background(Color(0xFFEBEFF5))
-                .clickable(onClick = onExpandedChange),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .zIndex(1f)
+                    .clip(RoundedCornerShape(16.dp))
+                    .height(56.dp)
+                    .background(Color(0xFFEBEFF5))
+                    .clickable(onClick = onExpandedChange),
+            contentAlignment = Alignment.Center,
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = Dimensions.space12),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Dimensions.space12),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "지역을 검색하세요.",
                     style = MaterialTheme.typography.labelLarge,
-                    color = Color(0xFF9098A6)
+                    color = Color(0xFF9098A6),
                 )
 
                 Icon(
                     painter = painterResource(id = R.drawable.ic_triangle_down),
                     contentDescription = "Toggle dropdown",
                     modifier = Modifier.rotate(arrowRotation),
-                    tint = Color(0xFF9098A6)
+                    tint = Color(0xFF9098A6),
                 )
             }
         }
@@ -234,17 +250,17 @@ fun LocationSelectionSection(
             visible = expanded,
             enter = expandVertically(),
             exit = shrinkVertically(),
-            modifier = Modifier.offset(y = (-16).dp)
+            modifier = Modifier.offset(y = (-16).dp),
         ) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(max = 240.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFFEBEFF5).copy(alpha = 0.5f)
-                    )
-                    .background(Color(0xFFEBEFF5).copy(alpha = 0.5f))
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 240.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Color(0xFFEBEFF5).copy(alpha = 0.5f),
+                        ).background(Color(0xFFEBEFF5).copy(alpha = 0.5f)),
             ) {
                 // 도시 및 구/군 선택 영역을 Row로 배치
                 Row(modifier = Modifier.fillMaxWidth()) {
@@ -252,21 +268,24 @@ fun LocationSelectionSection(
                     if (selectionStep == SelectionStep.DISTRICT) {
                         // 도시 선택 완료 - 선택된 도시 표시
                         Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .weight(1f)
-                                .background(Color(0xFFF5F5F5))
-                                .padding(vertical = 24.dp, horizontal = 16.dp),
-                            contentAlignment = Alignment.CenterStart
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .background(Color(0xFFF5F5F5))
+                                    .padding(vertical = 24.dp, horizontal = 16.dp),
+                            contentAlignment = Alignment.CenterStart,
                         ) {
                             Text(
                                 text = selectedCity ?: "",
-                                style = MaterialTheme.typography.labelLarge.copy(
-                                    fontWeight = FontWeight.SemiBold,
-                                    fontFamily = PretendardFontFamily,
-                                    lineHeight = 22.sp
-                                ).withLetterSpacingPercent(-2.5f),
-                                color = PrimaryPurple
+                                style =
+                                    MaterialTheme.typography.labelLarge
+                                        .copy(
+                                            fontWeight = FontWeight.SemiBold,
+                                            fontFamily = PretendardFontFamily,
+                                            lineHeight = 22.sp,
+                                        ).withLetterSpacingPercent(-2.5f),
+                                color = PrimaryPurple,
                             )
                         }
                     } else {
@@ -275,31 +294,31 @@ fun LocationSelectionSection(
                             cities = regions,
                             selectedCity = selectedCity,
                             onCitySelected = onCitySelected,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
                         )
                     }
 
                     // 세로 구분선
                     Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .width(1.dp)
-                            .background(Color(0xFFE4E8EF))
+                        modifier =
+                            Modifier
+                                .fillMaxHeight()
+                                .width(1.dp)
+                                .background(Color(0xFFE4E8EF)),
                     )
 
                     // 구/군 목록 (도시가 선택된 경우에만 표시)
                     Box(
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
                     ) {
                         androidx.compose.animation.AnimatedVisibility(
-                            visible = selectionStep == SelectionStep.DISTRICT
+                            visible = selectionStep == SelectionStep.DISTRICT,
                         ) {
                             Column {
-
                                 // 구/군 목록
                                 DistrictList(
                                     districts = districts,
-                                    onDistrictSelected = onDistrictSelected
+                                    onDistrictSelected = onDistrictSelected,
                                 )
                             }
                         }
@@ -313,11 +332,12 @@ fun LocationSelectionSection(
 @Composable
 fun PageIndicator(isActive: Boolean) {
     Box(
-        modifier = Modifier
-            .size(width = 8.dp, height = 8.dp)
-            .clip(CircleShape)
-            .background(
-                if (isActive) PrimaryPurple else Color(0xFFE4E8EF)
-            )
+        modifier =
+            Modifier
+                .size(width = 8.dp, height = 8.dp)
+                .clip(CircleShape)
+                .background(
+                    if (isActive) PrimaryPurple else Color(0xFFE4E8EF),
+                ),
     )
 }

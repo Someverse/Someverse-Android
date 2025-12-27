@@ -23,11 +23,11 @@ import com.someverse.presentation.ui.splash.SplashScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    startDestination: String = Screen.Splash.route  // 스플래시 화면으로 시작
+    startDestination: String = Screen.Splash.route, // 스플래시 화면으로 시작
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
         // Splash
         composable(route = Screen.Splash.route) {
@@ -38,7 +38,7 @@ fun NavGraph(
                     navController.navigate(Screen.Main.route) {
                         popUpTo(Screen.Splash.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
 
@@ -50,7 +50,7 @@ fun NavGraph(
                     navController.navigate(Screen.SignupLocation.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
 
@@ -61,7 +61,7 @@ fun NavGraph(
                     println("🛫 위치 선택 완료 -> 프로필 이미지 화면으로 이동 시작")
                     navController.navigate(Screen.SignupProfileImage.route)
                     println("✅ 프로필 이미지 화면 네비게이션 호출 완료")
-                }
+                },
             )
         }
 
@@ -70,7 +70,7 @@ fun NavGraph(
             SignupProfileImageScreen(
                 onNext = {
                     navController.navigate(Screen.SignupMovieCategory.route)
-                }
+                },
             )
         }
 
@@ -82,7 +82,7 @@ fun NavGraph(
                 },
                 onBack = {
                     navController.popBackStack()
-                }
+                },
             )
         }
 
@@ -92,7 +92,7 @@ fun NavGraph(
                 onNext = {
                     // 온보딩 완료 시 승인 완료 화면으로 이동
                     navController.navigate(Screen.SignupComplete.route)
-                }
+                },
             )
         }
 
@@ -108,7 +108,7 @@ fun NavGraph(
                         // 온보딩 스택 모두 제거
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
 
@@ -120,14 +120,15 @@ fun NavGraph(
         // Detail Chat Screen
         composable(
             route = Screen.DetailChat.route,
-            arguments = listOf(
-                navArgument("roomId") { type = NavType.LongType }
-            )
+            arguments =
+                listOf(
+                    navArgument("roomId") { type = NavType.LongType },
+                ),
         ) {
             DetailChatScreen(
                 onBackClick = {
                     navController.popBackStack()
-                }
+                },
             )
         }
     }

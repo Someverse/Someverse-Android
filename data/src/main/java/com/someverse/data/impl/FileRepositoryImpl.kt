@@ -12,37 +12,38 @@ import javax.inject.Inject
  * - Handles error transformation and business logic coordination
  * - Converts data layer exceptions to domain layer Results
  */
-class FileRepositoryImpl @Inject constructor(
-    private val dataSource: FileDataSource
-) : FileRepository {
+class FileRepositoryImpl
+    @Inject
+    constructor(
+        private val dataSource: FileDataSource,
+    ) : FileRepository {
+        override suspend fun uploadImage(
+            file: File,
+            folder: String,
+        ): Result<String> =
+            try {
+                val url = dataSource.uploadImage(file, folder)
+                Result.success(url)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
 
-    override suspend fun uploadImage(file: File, folder: String): Result<String> {
-        return try {
-            val url = dataSource.uploadImage(file, folder)
-            Result.success(url)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+        override suspend fun uploadMultipleImages(
+            files: List<File>,
+            folder: String,
+        ): Result<List<String>> =
+            try {
+                val urls = dataSource.uploadMultipleImages(files, folder)
+                Result.success(urls)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
 
-    override suspend fun uploadMultipleImages(
-        files: List<File>,
-        folder: String
-    ): Result<List<String>> {
-        return try {
-            val urls = dataSource.uploadMultipleImages(files, folder)
-            Result.success(urls)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        override suspend fun deleteFile(fileUrl: String): Result<Unit> =
+            try {
+                dataSource.deleteFile(fileUrl)
+                Result.success(Unit)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
     }
-
-    override suspend fun deleteFile(fileUrl: String): Result<Unit> {
-        return try {
-            dataSource.deleteFile(fileUrl)
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-}

@@ -4,9 +4,9 @@ import com.someverse.data.source.AuthDataSource
 import com.someverse.domain.model.AuthStatus
 import com.someverse.domain.model.AuthToken
 import com.someverse.domain.model.Gender
+import com.someverse.domain.model.Location
 import com.someverse.domain.model.SocialProvider
 import com.someverse.domain.model.User
-import com.someverse.domain.model.Location
 import com.someverse.domain.repository.AuthRepository
 import javax.inject.Inject
 
@@ -20,123 +20,120 @@ import javax.inject.Inject
  * Note: OAuth login is handled by backend.
  * Use UserRepository.getCurrentUser() to fetch user after OAuth.
  */
-class AuthRepositoryImpl @Inject constructor(
-    private val dataSource: AuthDataSource  // Interface, not concrete class!
-) : AuthRepository {
+class AuthRepositoryImpl
+    @Inject
+    constructor(
+        private val dataSource: AuthDataSource, // Interface, not concrete class!
+    ) : AuthRepository {
+        // ==================== Authentication ====================
 
-    // ==================== Authentication ====================
+        override suspend fun getAuthStatus(): Result<AuthStatus> {
+            return try {
+                // Call dataSource to get auth status from API
+                val (userEntity, onboardingCompleted) = dataSource.getAuthStatus()
 
-    override suspend fun getAuthStatus(): Result<AuthStatus> {
-        return try {
-            // Call dataSource to get auth status from API
-            val (userEntity, onboardingCompleted) = dataSource.getAuthStatus()
+                // Validate required fields
+                if (userEntity.email.isNullOrBlank()) {
+                    return Result.failure(IllegalStateException("Email is required in auth status"))
+                }
 
-            // Validate required fields
-            if (userEntity.email.isNullOrBlank()) {
-                return Result.failure(IllegalStateException("Email is required in auth status"))
+                // Map UserEntity to AuthStatus (lightweight model)
+                val authStatus =
+                    AuthStatus(
+                        userId = userEntity.id,
+                        email = userEntity.email,
+                        realName = userEntity.realName,
+                        provider = SocialProvider.fromString(userEntity.provider),
+                        onboardingCompleted = onboardingCompleted,
+                    )
+
+                Result.success(authStatus)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+        override suspend fun logout(): Result<Unit> =
+            try {
+                dataSource.logout()
+                Result.success(Unit)
+            } catch (e: Exception) {
+                Result.failure(e)
             }
 
-            // Map UserEntity to AuthStatus (lightweight model)
-            val authStatus = AuthStatus(
-                userId = userEntity.id,
-                email = userEntity.email,
-                realName = userEntity.realName,
-                provider = SocialProvider.fromString(userEntity.provider),
-                onboardingCompleted = onboardingCompleted
-            )
-
-            Result.success(authStatus)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    override suspend fun logout(): Result<Unit> {
-        return try {
-            dataSource.logout()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    override suspend fun refreshToken(refreshToken: String): Result<AuthToken> {
-        return try {
-            val tokenEntity = dataSource.refreshToken(refreshToken)
-            Result.success(tokenEntity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    // ==================== Onboarding Steps ====================
-
-    override suspend fun submitNickname(nickname: String): Result<User> {
-        return try {
-            // Validate nickname (business logic)
-            if (nickname.isBlank()) {
-                return Result.failure(Exception("Nickname cannot be empty"))
+        override suspend fun refreshToken(refreshToken: String): Result<AuthToken> =
+            try {
+                val tokenEntity = dataSource.refreshToken(refreshToken)
+                Result.success(tokenEntity.toDomain())
+            } catch (e: Exception) {
+                Result.failure(e)
             }
 
-            // Delegate to dataSource and get updated user
-            val userEntity = dataSource.submitNickname(nickname)
-            Result.success(userEntity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+        // ==================== Onboarding Steps ====================
 
-    override suspend fun submitGender(gender: Gender): Result<User> {
-        return try {
-            val userEntity = dataSource.submitGender(gender)
-            Result.success(userEntity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+        override suspend fun submitNickname(nickname: String): Result<User> {
+            return try {
+                // Validate nickname (business logic)
+                if (nickname.isBlank()) {
+                    return Result.failure(Exception("Nickname cannot be empty"))
+                }
 
-    override suspend fun submitAge(age: Int): Result<User> {
-        return try {
-            // Validate age (business logic)
-            if (age < 0 || age > 150) {
-                return Result.failure(Exception("Invalid age"))
+                // Delegate to dataSource and get updated user
+                val userEntity = dataSource.submitNickname(nickname)
+                Result.success(userEntity.toDomain())
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+        override suspend fun submitGender(gender: Gender): Result<User> =
+            try {
+                val userEntity = dataSource.submitGender(gender)
+                Result.success(userEntity.toDomain())
+            } catch (e: Exception) {
+                Result.failure(e)
             }
 
-            val userEntity = dataSource.submitAge(age)
-            Result.success(userEntity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+        override suspend fun submitAge(age: Int): Result<User> {
+            return try {
+                // Validate age (business logic)
+                if (age < 0 || age > 150) {
+                    return Result.failure(Exception("Invalid age"))
+                }
 
-    override suspend fun submitAddress(address: List<String>): Result<User> {
-        return try {
-            if (address.isEmpty()) {
-                return Result.failure(Exception("Address list cannot be empty"))
+                val userEntity = dataSource.submitAge(age)
+                Result.success(userEntity.toDomain())
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+        override suspend fun submitAddress(address: List<String>): Result<User> {
+            return try {
+                if (address.isEmpty()) {
+                    return Result.failure(Exception("Address list cannot be empty"))
+                }
+
+                val userEntity = dataSource.submitAddress(address)
+                Result.success(userEntity.toDomain())
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+        override suspend fun submitProfileImage(imageUrl: String): Result<User> =
+            try {
+                val userEntity = dataSource.submitProfileImage(imageUrl)
+                Result.success(userEntity.toDomain())
+            } catch (e: Exception) {
+                Result.failure(e)
             }
 
-            val userEntity = dataSource.submitAddress(address)
-            Result.success(userEntity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        override suspend fun getAddressList(): Result<List<Location>> =
+            try {
+                val locations = dataSource.getAddressList()
+                Result.success(locations)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
     }
-
-    override suspend fun submitProfileImage(imageUrl: String): Result<User> {
-        return try {
-            val userEntity = dataSource.submitProfileImage(imageUrl)
-            Result.success(userEntity.toDomain())
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    override suspend fun getAddressList(): Result<List<Location>> {
-        return try {
-            val locations = dataSource.getAddressList()
-            Result.success(locations)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-}

@@ -22,8 +22,8 @@ import com.someverse.presentation.ui.theme.*
 @Composable
 fun SignupMovieCategoryScreen(
     onNext: () -> Unit,
-    onBack:(() -> Unit)? = null,
-    viewModel: SignupMovieCategoryViewModel = hiltViewModel()
+    onBack: (() -> Unit)? = null,
+    viewModel: SignupMovieCategoryViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -36,23 +36,24 @@ fun SignupMovieCategoryScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // TopBar 추가
             SimpleTopBar(
                 title = "취향 입력",
-                onBackClick = onBack
+                onBackClick = onBack,
             )
 
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Dimensions.screenPadding),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(Dimensions.screenPadding),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 // 상단 여백
                 Spacer(modifier = Modifier.height(Dimensions.space24))
@@ -63,7 +64,7 @@ fun SignupMovieCategoryScreen(
                     style = MaterialTheme.typography.displaySmall,
                     textAlign = TextAlign.Start,
                     color = Black,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
 
                 Spacer(modifier = Modifier.height(Dimensions.space12))
@@ -74,7 +75,7 @@ fun SignupMovieCategoryScreen(
                     style = MaterialTheme.typography.bodyLarge,
                     color = DescGray,
                     textAlign = TextAlign.Start,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -82,13 +83,13 @@ fun SignupMovieCategoryScreen(
                 // 카테고리 칩과 버튼을 묶는 Column
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(86.dp)
+                    verticalArrangement = Arrangement.spacedBy(86.dp),
                 ) {
                     // 카테고리 칩들 - FlowRow로 가로 배치
                     FlowRow(
                         horizontalArrangement = Arrangement.spacedBy(Dimensions.space8),
                         verticalArrangement = Arrangement.spacedBy(Dimensions.space12),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     ) {
                         uiState.movieCategories.forEach { category ->
                             CategoryChip(
@@ -96,7 +97,7 @@ fun SignupMovieCategoryScreen(
                                 selected = uiState.selectedCategories.contains(category),
                                 onSelectionChanged = {
                                     viewModel.toggleCategory(category)
-                                }
+                                },
                             )
                         }
                     }
@@ -111,9 +112,10 @@ fun SignupMovieCategoryScreen(
                             text = "인생영화 고르기",
                             onClick = { viewModel.submitCategories() },
                             enabled = true,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp),
                         )
                     } else {
                         // 선택 안 된 상태: 연한 보라-연한 노랑 그라데이션
@@ -121,9 +123,10 @@ fun SignupMovieCategoryScreen(
                             text = "인생영화 고르기",
                             onClick = { viewModel.submitCategories() },
                             enabled = false,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(60.dp)
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .height(60.dp),
                         )
                     }
                 }
@@ -139,9 +142,10 @@ fun SignupMovieCategoryScreen(
                 onDismiss = { /* 에러 메시지 자동 사라짐 */ },
                 duration = 3000L,
                 isError = true,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 100.dp)
+                modifier =
+                    Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 100.dp),
             )
         }
     }
@@ -155,34 +159,37 @@ fun CategoryChip(
     text: String,
     selected: Boolean,
     onSelectionChanged: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val backgroundColor = if (selected) SelectedRed else ChipBackgroundGray
     val contentColor = if (selected) White else ChipGray
 
     Surface(
-        modifier = modifier
-            .heightIn(min = 35.dp)
-            .toggleable(
-                value = selected,
-                onValueChange = { onSelectionChanged() }
-            ),
+        modifier =
+            modifier
+                .heightIn(min = 35.dp)
+                .toggleable(
+                    value = selected,
+                    onValueChange = { onSelectionChanged() },
+                ),
         shape = RoundedCornerShape(50),
         color = backgroundColor,
-        tonalElevation = 0.dp
+        tonalElevation = 0.dp,
     ) {
         Box(
-            modifier = Modifier
-                .padding(horizontal = 12.dp, vertical = 8.dp),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Bold
-                ),
+                style =
+                    MaterialTheme.typography.bodyLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                    ),
                 color = contentColor,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }

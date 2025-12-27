@@ -31,25 +31,28 @@ import com.someverse.presentation.ui.theme.withLetterSpacingPercent
 fun DropdownItem(
     text: String,
     isSelected: Boolean = false,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 24.dp)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                onClick = onClick
-            )
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 24.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    onClick = onClick,
+                ),
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelLarge.copy(
-                fontFamily = PretendardFontFamily,
-                lineHeight = 22.sp,
-                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
-            ).withLetterSpacingPercent(-2.5f),
-            color = if (isSelected) PrimaryPurple else Color(0xFF9098A6)
+            style =
+                MaterialTheme.typography.labelLarge
+                    .copy(
+                        fontFamily = PretendardFontFamily,
+                        lineHeight = 22.sp,
+                        fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                    ).withLetterSpacingPercent(-2.5f),
+            color = if (isSelected) PrimaryPurple else Color(0xFF9098A6),
         )
     }
 }
@@ -62,17 +65,18 @@ fun CityList(
     cities: List<String>,
     selectedCity: String?,
     onCitySelected: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier
-            .padding(vertical = 6.dp)
+        modifier =
+            modifier
+                .padding(vertical = 6.dp),
     ) {
         items(cities) { city ->
             DropdownItem(
                 text = city,
                 isSelected = city == selectedCity,
-                onClick = { onCitySelected(city) }
+                onClick = { onCitySelected(city) },
             )
         }
     }
@@ -85,16 +89,17 @@ fun CityList(
 fun DistrictList(
     districts: List<String>,
     onDistrictSelected: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier
-            .padding(vertical = 6.dp)
+        modifier =
+            modifier
+                .padding(vertical = 6.dp),
     ) {
         items(districts) { district ->
             DropdownItem(
                 text = district,
-                onClick = { onDistrictSelected(district) }
+                onClick = { onDistrictSelected(district) },
             )
         }
     }
@@ -107,53 +112,56 @@ fun DistrictList(
 fun LocationChip(
     city: String,
     district: String,
-    onRemove: () -> Unit
+    onRemove: () -> Unit,
 ) {
     Box(modifier = Modifier.padding(vertical = 4.dp)) {
         Surface(
             shape = RoundedCornerShape(50.dp),
-            color = Color(0xFFEBEFF5)
+            color = Color(0xFFEBEFF5),
         ) {
             Row(
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .padding(vertical = 8.dp, horizontal = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = "$city $district",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Normal,
-                        lineHeight = 26.sp
-                    ).withLetterSpacingPercent(-2.5f),
-                    color = Color(0xFF9098A6)
+                    style =
+                        MaterialTheme.typography.labelLarge
+                            .copy(
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Normal,
+                                lineHeight = 26.sp,
+                            ).withLetterSpacingPercent(-2.5f),
+                    color = Color(0xFF9098A6),
                 )
             }
         }
 
         // X 버튼 (위치 수정)
         Box(
-            modifier = Modifier
-                .size(15.dp)
-                .align(Alignment.TopEnd)
-                .offset(x = (-12).dp, y = (-6).dp)
-                .clip(CircleShape)
-                .background(Color(0xFF9098A6))
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = onRemove
-                ),
-            contentAlignment = Alignment.Center
+            modifier =
+                Modifier
+                    .size(15.dp)
+                    .align(Alignment.TopEnd)
+                    .offset(x = (-12).dp, y = (-6).dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFF9098A6))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = onRemove,
+                    ),
+            contentAlignment = Alignment.Center,
         ) {
             // X 이미지
             Icon(
                 painter = painterResource(id = R.drawable.ic_cancel_circle),
                 contentDescription = "Remove",
                 modifier = Modifier.size(15.dp),
-                tint = Color(0xFF9098A6)
+                tint = Color(0xFF9098A6),
             )
         }
     }
 }
-

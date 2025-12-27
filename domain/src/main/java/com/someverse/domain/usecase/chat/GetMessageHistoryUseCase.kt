@@ -10,36 +10,38 @@ import javax.inject.Inject
  * - Business logic: Validate pagination parameters
  * - Delegates to ChatRepository
  */
-class GetMessageHistoryUseCase @Inject constructor(
-    private val chatRepository: ChatRepository
-) {
-    /**
-     * Get message history for a chat room with pagination
-     *
-     * @param roomId Target chat room ID
-     * @param page Page number (0-based)
-     * @param size Number of messages per page
-     * @return Result<ChatMessageHistory> paginated message history or failure with error
-     */
-    suspend operator fun invoke(
-        roomId: Long,
-        page: Int = 0,
-        size: Int = 50
-    ): Result<ChatMessageHistory> {
-        // Business logic: Validate input
-        if (roomId <= 0) {
-            return Result.failure(
-                IllegalArgumentException("Invalid room ID")
-            )
-        }
+class GetMessageHistoryUseCase
+    @Inject
+    constructor(
+        private val chatRepository: ChatRepository,
+    ) {
+        /**
+         * Get message history for a chat room with pagination
+         *
+         * @param roomId Target chat room ID
+         * @param page Page number (0-based)
+         * @param size Number of messages per page
+         * @return Result<ChatMessageHistory> paginated message history or failure with error
+         */
+        suspend operator fun invoke(
+            roomId: Long,
+            page: Int = 0,
+            size: Int = 50,
+        ): Result<ChatMessageHistory> {
+            // Business logic: Validate input
+            if (roomId <= 0) {
+                return Result.failure(
+                    IllegalArgumentException("Invalid room ID"),
+                )
+            }
 
-        if (page < 0) {
-            return Result.failure(
-                IllegalArgumentException("Page number cannot be negative")
-            )
-        }
+            if (page < 0) {
+                return Result.failure(
+                    IllegalArgumentException("Page number cannot be negative"),
+                )
+            }
 
-        // Delegate to repository
-        return chatRepository.getMessageHistory(roomId, page, size)
+            // Delegate to repository
+            return chatRepository.getMessageHistory(roomId, page, size)
+        }
     }
-}

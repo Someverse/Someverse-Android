@@ -1,4 +1,3 @@
 package com.someverse.data.impl
 
-class UserRepositoryImpl {
-}
+class UserRepositoryImpl

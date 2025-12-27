@@ -18,49 +18,49 @@ import javax.inject.Inject
  * - No business logic (delegated to UseCase)
  */
 @HiltViewModel
-class FeedViewModel @Inject constructor(
-    private val getRandomFeedsUseCase: GetRandomFeedsUseCase
-) : ViewModel() {
+class FeedViewModel
+    @Inject
+    constructor(
+        private val getRandomFeedsUseCase: GetRandomFeedsUseCase,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow(FeedUiState())
+        val uiState: StateFlow<FeedUiState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(FeedUiState())
-    val uiState: StateFlow<FeedUiState> = _uiState.asStateFlow()
+        init {
+            loadFeeds()
+        }
 
-    init {
-        loadFeeds()
-    }
+        /**
+         * Load random feeds from repository
+         */
+        fun loadFeeds() {
+            viewModelScope.launch {
+                _uiState.update { it.copy(isLoading = true, error = null) }
 
-    /**
-     * Load random feeds from repository
-     */
-    fun loadFeeds() {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, error = null) }
-
-            getRandomFeedsUseCase()
-                .onSuccess { feeds ->
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            feeds = feeds,
-                            error = null
-                        )
+                getRandomFeedsUseCase()
+                    .onSuccess { feeds ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                feeds = feeds,
+                                error = null,
+                            )
+                        }
+                    }.onFailure { exception ->
+                        _uiState.update {
+                            it.copy(
+                                isLoading = false,
+                                error = exception.message ?: "Unknown error occurred",
+                            )
+                        }
                     }
-                }
-                .onFailure { exception ->
-                    _uiState.update {
-                        it.copy(
-                            isLoading = false,
-                            error = exception.message ?: "Unknown error occurred"
-                        )
-                    }
-                }
+            }
+        }
+
+        /**
+         * Refresh feeds
+         */
+        fun refresh() {
+            loadFeeds()
         }
     }
-
-    /**
-     * Refresh feeds
-     */
-    fun refresh() {
-        loadFeeds()
-    }
-}

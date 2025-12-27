@@ -40,32 +40,34 @@ import javax.inject.Inject
  * }
  * ```
  */
-class SocialLoginUseCase @Inject constructor(
-    private val authRepository: AuthRepository
-    // TODO: Inject TokenRepository for token storage
-) {
-    /**
-     * Complete social login process
-     *
-     * @param jwtToken JWT token from OAuth callback
-     * @return Result<AuthStatus> with user info and onboarding state
-     */
-    suspend operator fun invoke(jwtToken: String): Result<AuthStatus> {
-        // Validate input
-        if (jwtToken.isBlank()) {
-            return Result.failure(
-                IllegalArgumentException("JWT token cannot be blank")
-            )
-        }
+class SocialLoginUseCase
+    @Inject
+    constructor(
+        private val authRepository: AuthRepository,
+        // TODO: Inject TokenRepository for token storage
+    ) {
+        /**
+         * Complete social login process
+         *
+         * @param jwtToken JWT token from OAuth callback
+         * @return Result<AuthStatus> with user info and onboarding state
+         */
+        suspend operator fun invoke(jwtToken: String): Result<AuthStatus> {
+            // Validate input
+            if (jwtToken.isBlank()) {
+                return Result.failure(
+                    IllegalArgumentException("JWT token cannot be blank"),
+                )
+            }
 
-        return try {
-            // TODO: Save JWT token
-            // tokenRepository.saveToken(jwtToken)
+            return try {
+                // TODO: Save JWT token
+                // tokenRepository.saveToken(jwtToken)
 
-            // Get auth status (calls GET /users/me)
-            authRepository.getAuthStatus()
-        } catch (e: Exception) {
-            Result.failure(e)
+                // Get auth status (calls GET /users/me)
+                authRepository.getAuthStatus()
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
     }
-}

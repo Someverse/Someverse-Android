@@ -32,27 +32,29 @@ import com.someverse.presentation.ui.theme.ChipGray
 @Composable
 fun ChatListItem(
     chat: Chat,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Background)
-            .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 12.dp)
-            .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(Background)
+                .padding(start = 16.dp, end = 16.dp, top = 20.dp, bottom = 12.dp)
+                .clickable { onClick() },
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         // Profile image and text content in a row
         Row(
             modifier = Modifier.weight(1f),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             // Profile image
             Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFEBEFF5))
+                modifier =
+                    Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(Color(0xFFEBEFF5)),
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -67,7 +69,7 @@ fun ChatListItem(
                     letterSpacing = (-0.3).sp,
                     lineHeight = (16 * 1.2).sp,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -78,7 +80,7 @@ fun ChatListItem(
                     letterSpacing = (-0.3).sp,
                     lineHeight = (14 * 1.43).sp,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }
@@ -88,7 +90,7 @@ fun ChatListItem(
         // Right side (time and badge)
         Column(
             horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             if (chat.unreadCount > 0) {
                 UnreadBadge(count = chat.unreadCount)
@@ -99,9 +101,8 @@ fun ChatListItem(
                 fontWeight = FontWeight.Normal,
                 color = ChipGray,
                 letterSpacing = (-0.3).sp,
-                lineHeight = (12 * 1.2).sp
+                lineHeight = (12 * 1.2).sp,
             )
         }
     }
 }
-

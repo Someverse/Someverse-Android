@@ -6,5 +6,5 @@ package com.someverse.domain.model
 data class Movie(
     val movieId: Long,
     val title: String,
-    val posterPath: String?
+    val posterPath: String?,
 )

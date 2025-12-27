@@ -8,10 +8,10 @@ import javax.inject.Inject
  * Update Activity Locations UseCase
  * PUT /users/profile/me/locations
  */
-class UpdateActivityLocationsUseCase @Inject constructor(
-    private val userRepository: UserRepository
-) {
-    suspend operator fun invoke(locations: List<Location>): Result<Unit> {
-        return userRepository.updateActivityLocations(locations)
+class UpdateActivityLocationsUseCase
+    @Inject
+    constructor(
+        private val userRepository: UserRepository,
+    ) {
+        suspend operator fun invoke(locations: List<Location>): Result<Unit> = userRepository.updateActivityLocations(locations)
     }
-}

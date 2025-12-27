@@ -33,11 +33,12 @@ import com.someverse.presentation.ui.theme.*
 @Composable
 fun MyProfileScreen() {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(ChatBackground)
-            .statusBarsPadding()
-            .verticalScroll(rememberScrollState())
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(ChatBackground)
+                .statusBarsPadding()
+                .verticalScroll(rememberScrollState()),
     ) {
         // Top bar
         TopBar()
@@ -56,10 +57,11 @@ fun MyProfileScreen() {
 
         // Divider
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(12.dp)
-                .background(Neutral20)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(12.dp)
+                    .background(Neutral20),
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -71,10 +73,11 @@ fun MyProfileScreen() {
 
         // Divider
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(12.dp)
-                .background(Neutral20)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(12.dp)
+                    .background(Neutral20),
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -89,43 +92,45 @@ fun MyProfileScreen() {
 @Composable
 private fun TopBar() {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 18.dp, vertical = 12.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 18.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         // SOMEVERSE Logo placeholder
         Text(
             text = "SOMEVERSE",
             fontSize = 14.sp,
             fontWeight = FontWeight.Black,
-            color = PrimaryPurple
+            color = PrimaryPurple,
         )
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "포인트",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DescGray
+                color = DescGray,
             )
 
             Box(
-                modifier = Modifier
-                    .width(1.dp)
-                    .height(20.dp)
-                    .background(Neutral80)
+                modifier =
+                    Modifier
+                        .width(1.dp)
+                        .height(20.dp)
+                        .background(Neutral80),
             )
 
             Text(
                 text = "설정",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = DescGray
+                color = DescGray,
             )
         }
     }
@@ -135,19 +140,20 @@ private fun TopBar() {
 private fun ProfileSection() {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         // Profile image with edit badge
         Box(
-            contentAlignment = Alignment.BottomEnd
+            contentAlignment = Alignment.BottomEnd,
         ) {
             // Profile image
             Box(
-                modifier = Modifier
-                    .size(120.dp)
-                    .clip(CircleShape)
-                    .background(Neutral20),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .size(120.dp)
+                        .clip(CircleShape)
+                        .background(Neutral20),
+                contentAlignment = Alignment.Center,
             ) {
                 // Placeholder for profile image
                 // In production, use AsyncImage or similar
@@ -155,21 +161,21 @@ private fun ProfileSection() {
 
             // Edit badge with gradient
             Box(
-                modifier = Modifier
-                    .offset(x = (-4).dp, y = (-4).dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(
-                        Brush.horizontalGradient(
-                            colors = listOf(GradationStart, GradationEnd)
-                        )
-                    )
-                    .padding(horizontal = 8.dp, vertical = 3.dp)
+                modifier =
+                    Modifier
+                        .offset(x = (-4).dp, y = (-4).dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(
+                            Brush.horizontalGradient(
+                                colors = listOf(GradationStart, GradationEnd),
+                            ),
+                        ).padding(horizontal = 8.dp, vertical = 3.dp),
             ) {
                 Text(
                     text = "편집",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Color.White
+                    color = Color.White,
                 )
             }
         }
@@ -181,7 +187,7 @@ private fun ProfileSection() {
             text = "드라마메이커, 24세",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = DescGray
+            color = DescGray,
         )
 
         Spacer(modifier = Modifier.height(4.dp))
@@ -191,7 +197,7 @@ private fun ProfileSection() {
             text = "성북구, 관악구",
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
-            color = DescGray
+            color = DescGray,
         )
     }
 }
@@ -199,21 +205,22 @@ private fun ProfileSection() {
 @Composable
 private fun FeedSection() {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
     ) {
         // Header
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "내 피드",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Black
+                color = Black,
             )
         }
 
@@ -225,7 +232,7 @@ private fun FeedSection() {
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
             color = Neutral80,
-            lineHeight = 14.4.sp
+            lineHeight = 14.4.sp,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -235,13 +242,15 @@ private fun FeedSection() {
             text = "피드 작성하기",
             onClick = { /* TODO: Navigate to feed creation */ },
             enabled = true,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
-            textStyle = MaterialTheme.typography.titleMedium.copy(
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+            textStyle =
+                MaterialTheme.typography.titleMedium.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                ),
         )
     }
 }
@@ -249,16 +258,17 @@ private fun FeedSection() {
 @Composable
 private fun PreferenceCurationSection() {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
     ) {
         // Header
         Text(
             text = "취향 큐레이션",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Black
+            color = Black,
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -276,49 +286,51 @@ private fun PreferenceCurationSection() {
 @Composable
 private fun FavoriteGenreSection() {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         // Title with icon
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(7.dp))
-                .background(
-                    Brush.horizontalGradient(
-                        colors = listOf(Color(0xFFEBF0FB), Color(0xFFF6FFFB))
-                    )
-                )
-                .padding(8.dp),
+            modifier =
+                Modifier
+                    .clip(RoundedCornerShape(7.dp))
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(Color(0xFFEBF0FB), Color(0xFFF6FFFB)),
+                        ),
+                    ).padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             // Icon placeholder
             Box(
-                modifier = Modifier
-                    .size(14.dp)
-                    .background(Color(0xFF5088E2), CircleShape)
+                modifier =
+                    Modifier
+                        .size(14.dp)
+                        .background(Color(0xFF5088E2), CircleShape),
             )
 
             Text(
                 text = "좋아하는 장르",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color(0xFF5088E2)
+                color = Color(0xFF5088E2),
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
             // Edit button
             Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Neutral20)
-                    .padding(horizontal = 8.dp, vertical = 3.dp)
+                modifier =
+                    Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Neutral20)
+                        .padding(horizontal = 8.dp, vertical = 3.dp),
             ) {
                 Text(
                     text = "편집",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Neutral80
+                    color = Neutral80,
                 )
             }
         }
@@ -328,7 +340,7 @@ private fun FavoriteGenreSection() {
         // Genre chips
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             GenreChip("뮤지컬")
             GenreChip("공포/호러")
@@ -341,16 +353,17 @@ private fun FavoriteGenreSection() {
 @Composable
 private fun GenreChip(text: String) {
     Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(50.dp))
-            .background(ChipBackgroundGray)
-            .padding(horizontal = 12.dp, vertical = 8.dp)
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(50.dp))
+                .background(ChipBackgroundGray)
+                .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
         Text(
             text = text,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
-            color = ChipGray
+            color = ChipGray,
         )
     }
 }
@@ -358,49 +371,51 @@ private fun GenreChip(text: String) {
 @Composable
 private fun FavoriteWorksSection() {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         // Title with icon
         Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(7.dp))
-                .background(
-                    Brush.horizontalGradient(
-                        colors = listOf(Color(0xFFEBF0FB), Color(0xFFF6FFFB))
-                    )
-                )
-                .padding(8.dp),
+            modifier =
+                Modifier
+                    .clip(RoundedCornerShape(7.dp))
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(Color(0xFFEBF0FB), Color(0xFFF6FFFB)),
+                        ),
+                    ).padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             // Icon placeholder
             Box(
-                modifier = Modifier
-                    .size(14.dp)
-                    .background(Color(0xFF5088E2), CircleShape)
+                modifier =
+                    Modifier
+                        .size(14.dp)
+                        .background(Color(0xFF5088E2), CircleShape),
             )
 
             Text(
                 text = "좋아하는 작품",
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color(0xFF5088E2)
+                color = Color(0xFF5088E2),
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
             // Edit button
             Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Neutral20)
-                    .padding(horizontal = 8.dp, vertical = 3.dp)
+                modifier =
+                    Modifier
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Neutral20)
+                        .padding(horizontal = 8.dp, vertical = 3.dp),
             ) {
                 Text(
                     text = "편집",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Neutral80
+                    color = Neutral80,
                 )
             }
         }
@@ -410,15 +425,16 @@ private fun FavoriteWorksSection() {
         // Works grid (4 items)
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             repeat(4) {
                 Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .aspectRatio(0.7f)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(Color(0xFFD9D9D9))
+                    modifier =
+                        Modifier
+                            .weight(1f)
+                            .aspectRatio(0.7f)
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(Color(0xFFD9D9D9)),
                 )
             }
         }
@@ -428,16 +444,17 @@ private fun FavoriteWorksSection() {
 @Composable
 private fun PreferenceThemeSection() {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
     ) {
         // Header
         Text(
             text = "취향 테마",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Black
+            color = Black,
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -448,7 +465,7 @@ private fun PreferenceThemeSection() {
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
             color = Neutral80,
-            lineHeight = 14.4.sp
+            lineHeight = 14.4.sp,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -458,13 +475,15 @@ private fun PreferenceThemeSection() {
             text = "취향테마 입력하기",
             onClick = { /* TODO: Navigate to theme input */ },
             enabled = true,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
-            textStyle = MaterialTheme.typography.titleMedium.copy(
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold
-            )
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+            textStyle =
+                MaterialTheme.typography.titleMedium.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.SemiBold,
+                ),
         )
     }
 }

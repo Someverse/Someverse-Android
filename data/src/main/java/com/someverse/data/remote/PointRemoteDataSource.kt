@@ -11,17 +11,18 @@ import javax.inject.Singleton
  * - Handles API communication for point (루미) operations
  */
 @Singleton
-class PointRemoteDataSource @Inject constructor(
-    private val pointApiService: PointApiService
-) : PointDataSource {
+class PointRemoteDataSource
+    @Inject
+    constructor(
+        private val pointApiService: PointApiService,
+    ) : PointDataSource {
+        override suspend fun getPointBalance(): Long {
+            val response = pointApiService.getPointBalance()
 
-    override suspend fun getPointBalance(): Long {
-        val response = pointApiService.getPointBalance()
-
-        if (response.success && response.data != null) {
-            return response.data.pointBalance
-        } else {
-            throw Exception(response.message)
+            if (response.success && response.data != null) {
+                return response.data.pointBalance
+            } else {
+                throw Exception(response.message)
+            }
         }
     }
-}

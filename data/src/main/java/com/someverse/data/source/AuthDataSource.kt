@@ -15,7 +15,6 @@ import com.someverse.domain.model.Location
  * Token saving is handled separately (TODO: TokenDataSource)
  */
 interface AuthDataSource {
-
     // ==================== Authentication ====================
 
     /**

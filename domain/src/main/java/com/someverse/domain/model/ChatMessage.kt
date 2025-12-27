@@ -8,11 +8,11 @@ data class ChatMessage(
     val content: String,
     val messageType: MessageType,
     val isRead: Boolean,
-    val createdAt: String
+    val createdAt: String,
 )
 
 enum class MessageType {
-    TEXT
+    TEXT,
 }
 
 data class ChatMessageHistory(
@@ -20,9 +20,9 @@ data class ChatMessageHistory(
     val currentPage: Int,
     val totalPages: Int,
     val totalElements: Int,
-    val hasNext: Boolean
+    val hasNext: Boolean,
 )
 
 data class UnreadCount(
-    val unreadCount: Int
+    val unreadCount: Int,
 )

@@ -17,5 +17,5 @@ data class ChatEntity(
     val unreadCount: Int,
     val isRequester: Boolean,
     val lumiUsed: Int,
-    val isFreeChat: Boolean
+    val isFreeChat: Boolean,
 )

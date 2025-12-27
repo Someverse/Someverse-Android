@@ -33,15 +33,15 @@ import javax.inject.Inject
  * }
  * ```
  */
-class CheckAuthStatusUseCase @Inject constructor(
-    private val authRepository: AuthRepository
-) {
-    /**
-     * Check authentication status and onboarding state
-     *
-     * @return Result<AuthStatus> containing auth status from backend
-     */
-    suspend operator fun invoke(): Result<AuthStatus> {
-        return authRepository.getAuthStatus()
+class CheckAuthStatusUseCase
+    @Inject
+    constructor(
+        private val authRepository: AuthRepository,
+    ) {
+        /**
+         * Check authentication status and onboarding state
+         *
+         * @return Result<AuthStatus> containing auth status from backend
+         */
+        suspend operator fun invoke(): Result<AuthStatus> = authRepository.getAuthStatus()
     }
-}

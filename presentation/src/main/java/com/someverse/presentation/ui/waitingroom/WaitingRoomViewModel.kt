@@ -14,119 +14,120 @@ import javax.inject.Inject
  * - Manages waiting room screen state
  */
 @HiltViewModel
-class WaitingRoomViewModel @Inject constructor(
-    // TODO: Inject UseCases when available
-) : ViewModel() {
+class WaitingRoomViewModel
+    @Inject
+    constructor(
+        // TODO: Inject UseCases when available
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow(WaitingRoomUiState())
+        val uiState: StateFlow<WaitingRoomUiState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(WaitingRoomUiState())
-    val uiState: StateFlow<WaitingRoomUiState> = _uiState.asStateFlow()
+        init {
+            loadWaitingRoomChats()
+        }
 
-    init {
-        loadWaitingRoomChats()
-    }
+        private fun loadWaitingRoomChats() {
+            // TODO: Replace with actual UseCase call
+            _uiState.value =
+                WaitingRoomUiState(
+                    isLoading = false,
+                    chatList = getDummyWaitingRoomChats(),
+                )
+        }
 
-    private fun loadWaitingRoomChats() {
-        // TODO: Replace with actual UseCase call
-        _uiState.value = WaitingRoomUiState(
-            isLoading = false,
-            chatList = getDummyWaitingRoomChats()
-        )
-    }
-
-    // Temporary dummy data
-    private fun getDummyWaitingRoomChats(): List<Chat> {
-        return listOf(
-            Chat(
-                roomId = 1,
-                partnerId = 101,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:30:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 0,
-                isFreeChat = true
-            ),
-            Chat(
-                roomId = 2,
-                partnerId = 102,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:28:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 50,
-                isFreeChat = false
-            ),
-            Chat(
-                roomId = 3,
-                partnerId = 103,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:26:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 100,
-                isFreeChat = false
-            ),
-            Chat(
-                roomId = 4,
-                partnerId = 104,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:24:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 0,
-                isFreeChat = true
-            ),
-            Chat(
-                roomId = 5,
-                partnerId = 105,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:22:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 75,
-                isFreeChat = false
-            ),
-            Chat(
-                roomId = 6,
-                partnerId = 106,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:20:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 0,
-                isFreeChat = true
-            ),
-            Chat(
-                roomId = 7,
-                partnerId = 107,
-                partnerNickname = "마포구보안관2",
-                partnerProfileImage = null,
-                status = ChatStatus.PENDING,
-                lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
-                lastMessageTime = "2025-11-24T15:18:00",
-                unreadCount = 1,
-                isRequester = false,
-                lumiUsed = 50,
-                isFreeChat = false
+        // Temporary dummy data
+        private fun getDummyWaitingRoomChats(): List<Chat> =
+            listOf(
+                Chat(
+                    roomId = 1,
+                    partnerId = 101,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:30:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 0,
+                    isFreeChat = true,
+                ),
+                Chat(
+                    roomId = 2,
+                    partnerId = 102,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:28:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 50,
+                    isFreeChat = false,
+                ),
+                Chat(
+                    roomId = 3,
+                    partnerId = 103,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:26:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 100,
+                    isFreeChat = false,
+                ),
+                Chat(
+                    roomId = 4,
+                    partnerId = 104,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:24:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 0,
+                    isFreeChat = true,
+                ),
+                Chat(
+                    roomId = 5,
+                    partnerId = 105,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:22:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 75,
+                    isFreeChat = false,
+                ),
+                Chat(
+                    roomId = 6,
+                    partnerId = 106,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:20:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 0,
+                    isFreeChat = true,
+                ),
+                Chat(
+                    roomId = 7,
+                    partnerId = 107,
+                    partnerNickname = "마포구보안관2",
+                    partnerProfileImage = null,
+                    status = ChatStatus.PENDING,
+                    lastMessage = "동해물과 백두산이 마르고 닳도록 하느님이...",
+                    lastMessageTime = "2025-11-24T15:18:00",
+                    unreadCount = 1,
+                    isRequester = false,
+                    lumiUsed = 50,
+                    isFreeChat = false,
+                ),
             )
-        )
     }
-}

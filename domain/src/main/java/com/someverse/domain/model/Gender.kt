@@ -7,15 +7,14 @@ package com.someverse.domain.model
  */
 enum class Gender {
     MALE,
-    FEMALE;
+    FEMALE,
+    ;
 
     companion object {
         /**
          * Convert string to Gender enum (case-insensitive)
          * @return Gender enum or null if invalid
          */
-        fun fromString(value: String): Gender? {
-            return entries.find { it.name.equals(value, ignoreCase = true) }
-        }
+        fun fromString(value: String): Gender? = entries.find { it.name.equals(value, ignoreCase = true) }
     }
 }

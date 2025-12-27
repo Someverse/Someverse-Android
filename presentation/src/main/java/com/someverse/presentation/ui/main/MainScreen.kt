@@ -46,11 +46,12 @@ fun MainScreen() {
     val currentRoute = navBackStackEntry?.destination?.route
 
     // Bottom navigation을 숨길 화면들
-    val screensWithoutBottomBar = listOf(
-        Screen.WaitingRoom.route,
-        Screen.DetailChat.route,
-        Screen.CreateFeed.route
-    )
+    val screensWithoutBottomBar =
+        listOf(
+            Screen.WaitingRoom.route,
+            Screen.DetailChat.route,
+            Screen.CreateFeed.route,
+        )
     val shouldShowBottomBar = currentRoute !in screensWithoutBottomBar
 
     Scaffold(
@@ -59,13 +60,14 @@ fun MainScreen() {
             if (shouldShowBottomBar) {
                 BottomNavigationBar(navController = navController)
             }
-        }
+        },
     ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = Screen.Feed.route,
-            modifier = Modifier
-                .padding(innerPadding)
+            modifier =
+                Modifier
+                    .padding(innerPadding),
         ) {
             composable(Screen.MyProfile.route) {
                 MyProfileScreen()
@@ -75,7 +77,7 @@ fun MainScreen() {
                 FeedScreen(
                     onAddFeedClick = {
                         navController.navigate(Screen.CreateFeed.route)
-                    }
+                    },
                 )
             }
 
@@ -89,7 +91,7 @@ fun MainScreen() {
                     },
                     onSearchClick = {
                         // TODO: Navigate to movie search screen
-                    }
+                    },
                 )
             }
 
@@ -105,10 +107,10 @@ fun MainScreen() {
                     onNavigateToDetailChat = { roomId ->
                         navController.navigate(
                             Screen.DetailChat.createRoute(
-                                roomId
-                            )
+                                roomId,
+                            ),
                         )
-                    }
+                    },
                 )
             }
 
@@ -116,20 +118,21 @@ fun MainScreen() {
                 WaitingRoomScreen(
                     onBackClick = {
                         navController.popBackStack()
-                    }
+                    },
                 )
             }
 
             composable(
                 route = Screen.DetailChat.route,
-                arguments = listOf(
-                    navArgument("roomId") { type = NavType.LongType }
-                )
+                arguments =
+                    listOf(
+                        navArgument("roomId") { type = NavType.LongType },
+                    ),
             ) {
                 DetailChatScreen(
                     onBackClick = {
                         navController.popBackStack()
-                    }
+                    },
                 )
             }
         }
@@ -143,18 +146,19 @@ fun BottomNavigationBar(navController: NavHostController) {
 
     NavigationBar(
         containerColor = Color.White,
-        contentColor = PrimaryPurple
+        contentColor = PrimaryPurple,
     ) {
         BottomNavItem.items.forEach { item ->
-            val isSelected = currentDestination?.hierarchy?.any {
-                it.route == item.route
-            } == true
+            val isSelected =
+                currentDestination?.hierarchy?.any {
+                    it.route == item.route
+                } == true
 
             NavigationBarItem(
                 icon = {
                     Icon(
                         painter = painterResource(id = item.icon),
-                        contentDescription = stringResource(id = item.titleRes)
+                        contentDescription = stringResource(id = item.titleRes),
                     )
                 },
                 label = {
@@ -173,13 +177,14 @@ fun BottomNavigationBar(navController: NavHostController) {
                         restoreState = true
                     }
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = PrimaryPurple,
-                    selectedTextColor = PrimaryPurple,
-                    unselectedIconColor = Color.Gray,
-                    unselectedTextColor = Color.Gray,
-                    indicatorColor = Color.Transparent
-                )
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = PrimaryPurple,
+                        selectedTextColor = PrimaryPurple,
+                        unselectedIconColor = Color.Gray,
+                        unselectedTextColor = Color.Gray,
+                        indicatorColor = Color.Transparent,
+                    ),
             )
         }
     }

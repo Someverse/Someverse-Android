@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class PointEntity(
     @SerializedName("pointBalance")
-    val pointBalance: Long
+    val pointBalance: Long,
 )
 
 /**
@@ -23,5 +23,5 @@ data class PointApiResponse<T>(
     @SerializedName("message")
     val message: String,
     @SerializedName("data")
-    val data: T?
+    val data: T?,
 )

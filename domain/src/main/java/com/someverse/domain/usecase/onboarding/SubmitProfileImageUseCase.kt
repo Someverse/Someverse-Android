@@ -43,11 +43,11 @@ class SubmitProfileImageUseCase @Inject constructor(
     }
 
     /**
-     * Upload profile image to S3 and submit URL to backend
-     *
-     * @param imageFile Image file to upload
-     * @return Result<String> containing S3 URL or error
-     */
+ * Upload profile image to S3 and submit URL to backend
+ *
+ * @param imageFile Image file to upload
+ * @return Result<String> containing S3 URL or error
+ */
     suspend operator fun invoke(imageFile: File): Result<String> {
         // Business logic: Validate file exists
         if (!imageFile.exists()) {
@@ -110,23 +110,25 @@ class SubmitProfileImageUseCase @Inject constructor(
 
 // Temporary implementation that always returns a mock URL
 // This allows the app to compile and run without the actual file upload functionality
-class SubmitProfileImageUseCase @Inject constructor(
-    private val authRepository: AuthRepository
-) {
-    suspend operator fun invoke(imageFile: File): Result<String> {
-        // Mock implementation - always returns a successful result with a fake URL
-        val mockUrl =
-            "https://someverse-bucket.s3.amazonaws.com/profile/mock_image_${System.currentTimeMillis()}.jpg"
+class SubmitProfileImageUseCase
+    @Inject
+    constructor(
+        private val authRepository: AuthRepository,
+    ) {
+        suspend operator fun invoke(imageFile: File): Result<String> {
+            // Mock implementation - always returns a successful result with a fake URL
+            val mockUrl =
+                "https://someverse-bucket.s3.amazonaws.com/profile/mock_image_${System.currentTimeMillis()}.jpg"
 
-        // Submit mock URL to backend
-        val submitResult = authRepository.submitProfileImage(mockUrl)
+            // Submit mock URL to backend
+            val submitResult = authRepository.submitProfileImage(mockUrl)
 
-        return if (submitResult.isSuccess) {
-            Result.success(mockUrl)
-        } else {
-            Result.failure(
-                submitResult.exceptionOrNull() ?: Exception("Failed to submit profile image")
-            )
+            return if (submitResult.isSuccess) {
+                Result.success(mockUrl)
+            } else {
+                Result.failure(
+                    submitResult.exceptionOrNull() ?: Exception("Failed to submit profile image"),
+                )
+            }
         }
     }
-}
