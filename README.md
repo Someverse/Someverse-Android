@@ -8,10 +8,10 @@
 <type>: <description>
 ```
 
-레이어 관련 작업인 경우:
-```
-<type>: <layer> - <description>
-```
+### 작성 규칙
+
+- **영어로 작성**: 커밋 메시지는 영어로 작성
+- **동사로 시작**: description은 동사 원형으로 시작 (add, fix, update, remove, implement 등)
 
 ### Type
 
@@ -25,25 +25,15 @@
 | `docs` | 문서 작성 및 수정 |
 | `chore` | 빌드 설정, 패키지 관리 등 유지보수 |
 
-### Layer (선택)
-
-레이어 관련 작업 시 명시:
-
-| Layer | 설명 |
-|-------|------|
-| `domain` | Domain 레이어 (UseCase, Entity, Repository Interface) |
-| `data` | Data 레이어 (Repository Impl, DataSource, DTO, Mapper) |
-| `presentation` | Presentation 레이어 (UI, ViewModel, Navigation) |
-
 ### 예시
 
 ```
-feat: domain - feed usecase
-feat: data - chat repository impl
-feat: presentation - matching screen
-refactor: 텍스트 Strings 사용
-add: color - neutral20, neutral80, gradation
-remove: firebender
-docs: PR Template
-chore: app logo
+feat: add feed usecase
+feat: implement chat repository
+feat: create matching screen
+refactor: use Strings for text resources
+add: add neutral20, neutral80, gradation colors
+remove: delete firebender module
+docs: update PR template
+chore: update app logo
 ```
