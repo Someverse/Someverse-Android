@@ -41,7 +41,7 @@ fun SomeVerseTopBar(
         modifier = modifier
             .fillMaxWidth()
             .height(height = 52.dp)
-            .background(color = Color(0xffFAFAFA))
+            .background(color = Color(0xffFFFFFF))
             .padding(horizontal = 30.dp)
     ) {
         // 좌측 아이콘
