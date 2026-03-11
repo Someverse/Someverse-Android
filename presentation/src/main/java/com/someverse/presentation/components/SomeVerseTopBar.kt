@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,7 +36,7 @@ fun SomeVerseTopBar(
     modifier: Modifier = Modifier,
     textTitle: String? = null,
     leadingIcon: (@Composable () -> Unit)? = null,
-    trailingIcons: List<@Composable () -> Unit> = emptyList()
+    trailingIcons: (@Composable RowScope.() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
@@ -84,14 +85,12 @@ fun SomeVerseTopBar(
         }
 
         // 우측 아이콘 그룹 (Row 배치)
-        if (trailingIcons.isNotEmpty()) {
+        if (trailingIcons != null) {
             Row(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                trailingIcons.forEach { icon ->
-                    icon()
-                }
+                trailingIcons()
             }
         }
     }
@@ -114,18 +113,16 @@ fun SomeVerseTopBarPreview() {
                     )
                 }
             },
-            trailingIcons = listOf(
-                {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_search),
-                            contentDescription = "검색",
-                            tint = iconColor,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                },
-            )
+            trailingIcons = {
+                IconButton(onClick = {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_search),
+                        contentDescription = "검색",
+                        tint = iconColor,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(Dimensions.space12))
@@ -143,28 +140,24 @@ fun SomeVerseTopBarPreview() {
                     )
                 }
             },
-            trailingIcons = listOf(
-                {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_search),
-                            contentDescription = "검색",
-                            tint = iconColor,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
-                },
-                {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_add_image),
-                            contentDescription = "설정",
-                            tint = iconColor,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
+            trailingIcons = {
+                IconButton(onClick = {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_search),
+                        contentDescription = "검색",
+                        tint = iconColor,
+                        modifier = Modifier.size(24.dp)
+                    )
                 }
-            )
+                IconButton(onClick = {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_add_image),
+                        contentDescription = "설정",
+                        tint = iconColor,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
         )
     }
 }
